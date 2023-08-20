@@ -13,7 +13,7 @@ class _FirstPageState extends State<FirstPage> {
     return Scaffold(
 
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.yellow,
         title: Text("AppBar", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
         centerTitle: true,
         // leading: Text("Leading"),

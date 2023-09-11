@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'tw_test.dart';
+
 class TwitterMainPage extends StatefulWidget {
   @override
   _TwitterMainPageState createState() => _TwitterMainPageState();
@@ -37,19 +39,28 @@ class _TwitterMainPageState extends State<TwitterMainPage> {
               decoration: BoxDecoration(
                 color: Colors.deepPurple,
               ),
-              child: Text(
-                'Menu',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
+              child: Row(
+                children: [
+                  CircleAvatar(child: Icon(Icons.person),),
+                  Text(
+                    ' Name',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
+                  ),
+                ],
               ),
             ),
             ListTile(
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: () {
-                // Handle drawer item tap
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context){
+                    return EzPostCard(username: 'Anas', content: 'this is some content', timestamp: '1 hr ago', comments: ["nigga","nigger"],);
+                  })
+                );
               },
             ),
             ListTile(
@@ -234,7 +245,7 @@ class _TwitterPostCardState extends State<TwitterPostCard> {
                 onPressed: _toggleShowAllComments,
                 child: Text(
                   showAllComments ? 'Hide comments' : 'View all comments',
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(color: Colors.purple),
                 ),
               ),
           ],

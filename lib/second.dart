@@ -18,7 +18,20 @@ class _SecondPageState extends State<SecondPage> {
 
         leading: Icon(Icons.menu),
       ),
-      body: Text('nigga'),
+      body: 
+          Row(
+            children: [
+              Text("data"),
+              ListView(
+                children: [
+                  Text("viewList"),
+
+                ],
+              )
+            ],
+          )
+     
+      
 
     );
   }

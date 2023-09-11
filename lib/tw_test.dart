@@ -45,6 +45,7 @@ class _EzPostCardState extends State<EzPostCard> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
+            CircleAvatar(child: Icon(Icons.person),),
             DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.deepPurple,

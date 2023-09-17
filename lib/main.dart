@@ -1,5 +1,6 @@
 import 'package:first_test/second.dart';
 import 'package:flutter/material.dart';
+import 'Profile.dart';
 import 'first.dart';
 import 'second.dart';
 import 'twitter.dart';
@@ -16,11 +17,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Test',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: TwitterMainPage()
+      home: EzMainPage()
     );
   }
 }

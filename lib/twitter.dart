@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-
+import 'Profile.dart';
 import 'tw_test.dart';
 
-class TwitterMainPage extends StatefulWidget {
+class EzMainPage extends StatefulWidget {
   @override
-  _TwitterMainPageState createState() => _TwitterMainPageState();
+  _EzMainPageState createState() => _EzMainPageState();
 }
 
-class _TwitterMainPageState extends State<TwitterMainPage> {
+class _EzMainPageState extends State<EzMainPage> {
   int _currentIndex = 0;
 
   void _onTabTapped(int index) {
@@ -41,7 +41,7 @@ class _TwitterMainPageState extends State<TwitterMainPage> {
               ),
               child: Row(
                 children: [
-                  CircleAvatar(child: Icon(Icons.person),),
+                  CircleAvatar(child: Icon(Icons.person)),
                   Text(
                     ' Name',
                     style: TextStyle(
@@ -56,10 +56,9 @@ class _TwitterMainPageState extends State<TwitterMainPage> {
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context){
-                    return EzPostCard(username: 'Anas', content: 'this is some content', timestamp: '1 hr ago', comments: ["nigga","nigger"],);
-                  })
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EzMainPage()),
                 );
               },
             ),
@@ -67,7 +66,10 @@ class _TwitterMainPageState extends State<TwitterMainPage> {
               leading: Icon(Icons.person),
               title: Text('Profile'),
               onTap: () {
-                // Handle drawer item tap
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                );
               },
             ),
             ListTile(
@@ -82,11 +84,26 @@ class _TwitterMainPageState extends State<TwitterMainPage> {
       ),
       body: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
-          return TwitterPostCard(
-            username: 'John Doe',
-            content: 'This is a tweet example.',
-            timestamp: '1h ago',
-            comments: ['Comment 1', 'Comment 2', 'Comment 3'],
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EzPostDetailsPage(
+                    username: 'Anas',
+                    content: 'this is some content',
+                    timestamp: '1 hr ago',
+                    comments: ["nigga", "nigger"],
+                  ),
+                ),
+              );
+            },
+            child: EzPostCard(
+              username: 'John Doe',
+              content: 'This is a Job example.',
+              timestamp: '1h ago',
+              comments: ['Comment 1', 'Comment 2', 'Comment 3'],
+            ),
           );
         },
         itemCount: 5, // Replace with the actual number of tweets
@@ -120,13 +137,13 @@ class _TwitterMainPageState extends State<TwitterMainPage> {
   }
 }
 
-class TwitterPostCard extends StatefulWidget {
+class EzPostCard extends StatelessWidget {
   final String username;
   final String content;
   final String timestamp;
   final List<String> comments;
 
-  TwitterPostCard({
+  EzPostCard({
     required this.username,
     required this.content,
     required this.timestamp,
@@ -134,36 +151,7 @@ class TwitterPostCard extends StatefulWidget {
   });
 
   @override
-  _TwitterPostCardState createState() => _TwitterPostCardState();
-}
-
-class _TwitterPostCardState extends State<TwitterPostCard> {
-  bool isLiked = false;
-  int likesCount = 0;
-  bool showAllComments = false;
-
-  void _toggleLike() {
-    setState(() {
-      if (isLiked) {
-        likesCount--;
-      } else {
-        likesCount++;
-      }
-      isLiked = !isLiked;
-    });
-  }
-
-  void _toggleShowAllComments() {
-    setState(() {
-      showAllComments = !showAllComments;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    List<String> displayedComments = showAllComments ? widget.comments :
-    [widget.comments.first];
-
     return Card(
       child: Padding(
         padding: EdgeInsets.all(12.0),
@@ -177,7 +165,7 @@ class _TwitterPostCardState extends State<TwitterPostCard> {
                 ),
                 SizedBox(width: 8.0),
                 Text(
-                  widget.username,
+                  username,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0,
@@ -187,67 +175,102 @@ class _TwitterPostCardState extends State<TwitterPostCard> {
             ),
             SizedBox(height: 8.0),
             Text(
-              widget.content,
+              content,
               style: TextStyle(fontSize: 16.0),
             ),
             SizedBox(height: 8.0),
             Text(
-              widget.timestamp,
+              timestamp,
               style: TextStyle(color: Colors.grey),
             ),
             SizedBox(height: 8.0),
             Row(
               children: [
                 IconButton(
-                  icon: isLiked ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
-                  color: isLiked ? Colors.red : Colors.grey,
-                  onPressed: _toggleLike,
+                  icon: Icon(Icons.comment),
+                  onPressed: () {
+                    // Handle comment button press
+                  },
                 ),
-                SizedBox(width: 4.0),
+                Text('${comments.length} comments'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class EzPostDetailsPage extends StatelessWidget {
+  final String username;
+  final String content;
+  final String timestamp;
+  final List<String> comments;
+
+  EzPostDetailsPage({
+    required this.username,
+    required this.content,
+    required this.timestamp,
+    required this.comments,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Post Details'),
+        backgroundColor: Colors.deepPurple,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  child: Icon(Icons.person),
+                ),
+                SizedBox(width: 8.0),
                 Text(
-                  '$likesCount',
+                  username,
                   style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.0,
                   ),
-                ),
-                SizedBox(width: 16.0),
-                Icon(
-                  Icons.share,
-                  size: 16.0,
-                  color: Colors.grey,
                 ),
               ],
             ),
-            SizedBox(height: 16.0),
+            SizedBox(height: 8.0),
             Text(
-              'Comments',
+              content,
+              style: TextStyle(fontSize: 16.0),
+            ),
+            SizedBox(height: 8.0),
+            Text(
+              timestamp,
+              style: TextStyle(color: Colors.grey),
+            ),
+            SizedBox(height: 8.0),
+            Text(
+              'Comments:',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16.0,
               ),
             ),
             SizedBox(height: 8.0),
-            Column(
-              children: displayedComments
-                  .map(
-                    (comment) => ListTile(
-                  leading: CircleAvatar(
-                    child: Icon(Icons.person),
-                  ),
-                  title: Text(comment),
-                ),
-              )
-                  .toList(),
-            ),
-            if (widget.comments.length > 1)
-              TextButton(
-                onPressed: _toggleShowAllComments,
-                child: Text(
-                  showAllComments ? 'Hide comments' : 'View all comments',
-                  style: TextStyle(color: Colors.purple),
-                ),
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Text(comments[index]),
+                  );
+                },
+                itemCount: comments.length,
               ),
+            ),
           ],
         ),
       ),

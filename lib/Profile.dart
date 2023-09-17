@@ -1,6 +1,7 @@
-import 'package:first_test/twitter.dart';
+import 'package:first_test/Home.dart';
 import 'package:flutter/material.dart';
-import 'tw_test.dart';
+import 'login.dart';
+import 'post.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -76,6 +77,16 @@ class _ProfilePageState extends State<ProfilePage> {
               title: Text('Profile'),
               onTap: () {
                 // Handle drawer item tap
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.login),
+              title: Text('Login'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
               },
             ),
             ListTile(
@@ -158,11 +169,10 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        backgroundColor: Colors.deepPurple, // Set the background color
         selectedItemColor: Colors.deepPurple, // Set the selected item color
         unselectedItemColor: Colors.grey, // Set the unselected item color
         onTap: _onTabTapped,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',

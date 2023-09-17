@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'Profile.dart';
 import 'first.dart';
 import 'second.dart';
-import 'twitter.dart';
-import 'tw_test.dart';
+import 'Home.dart';
+import 'post.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'login.dart';
+
 class EzPostCard extends StatefulWidget {
   final String username;
   final String content;
@@ -76,6 +78,16 @@ class _EzPostCardState extends State<EzPostCard> {
               title: Text('Profile'),
               onTap: () {
                 // Handle drawer item tap
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.login),
+              title: Text('Login'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
               },
             ),
             ListTile(

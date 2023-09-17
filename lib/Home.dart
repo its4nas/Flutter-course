@@ -1,6 +1,7 @@
+import 'package:first_test/login.dart';
 import 'package:flutter/material.dart';
 import 'Profile.dart';
-import 'tw_test.dart';
+import 'post.dart';
 
 class EzMainPage extends StatefulWidget {
   @override
@@ -56,10 +57,7 @@ class _EzMainPageState extends State<EzMainPage> {
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => EzMainPage()),
-                );
+                //
               },
             ),
             ListTile(
@@ -69,6 +67,16 @@ class _EzMainPageState extends State<EzMainPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ProfilePage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.login),
+              title: Text('Login'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
                 );
               },
             ),

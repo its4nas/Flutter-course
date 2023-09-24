@@ -1,20 +1,25 @@
-import 'package:first_test/Home.dart';
-import 'package:first_test/signup.dart';
+import 'package:first_test/login.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
+class SignupPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignupPageState createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _firstNameController = TextEditingController();
+  TextEditingController _lastNameController = TextEditingController();
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _phoneController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
     super.dispose();
   }
 
@@ -46,6 +51,45 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(height: 32.0),
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'First Name',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Last Name',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16.0),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 32.0),
               child: TextFormField(
@@ -59,6 +103,23 @@ class _LoginPageState extends State<LoginPage> {
                     borderSide: BorderSide.none,
                   ),
                   prefixIcon: Icon(Icons.email),
+                ),
+              ),
+            ),
+            SizedBox(height: 16.0),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 32.0),
+              child: TextFormField(
+                controller: _phoneController,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  hintText: 'Phone Number',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  prefixIcon: Icon(Icons.phone),
                 ),
               ),
             ),
@@ -85,13 +146,9 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () {
                 String email = _emailController.text;
                 String password = _passwordController.text;
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) {
-                    return EzMainPage();
-                  },)
-                );
+                // Handle login button press with email and password
               },
-              child: Text('Log In', style: TextStyle(color: Colors.deepPurple, fontSize: 15, fontWeight: FontWeight.bold),),
+              child: Text('Confirm', style: TextStyle(color: Colors.deepPurple, fontSize: 15, fontWeight: FontWeight.bold),),
               style: ElevatedButton.styleFrom(
                 primary: Colors.white,
                 padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
@@ -103,27 +160,16 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 16.0),
             TextButton(
               onPressed: () {
-                // Handle forgot password button press
-              },
-              child: Text(
-                'Forgot password?',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder:(context) {
-                    return SignupPage();
-                  },)
+                    MaterialPageRoute(builder: (context){
+                      return LoginPage();
+                    })
                 );
               },
               child: Text(
-                'Do not have an account?',
+                'I already have an account',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.blue,
                 ),
               ),
             ),

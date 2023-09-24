@@ -5,6 +5,7 @@ import 'first.dart';
 import 'second.dart';
 import 'Home.dart';
 import 'post.dart';
+import 'signup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: EzMainPage()
+      home: SignupPage()
     );
   }
 }

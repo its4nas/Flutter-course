@@ -1,10 +1,10 @@
 import 'package:first_test/second.dart';
 import 'package:flutter/material.dart';
-import 'Profile.dart';
+import 'MainPage.dart';
 import 'first.dart';
 import 'second.dart';
 import 'Home.dart';
-import 'post.dart';
+import 'ProfileInfo.dart';
 import 'signup.dart';
 
 void main() {
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: SignupPage()
+      home: MainPage()
     );
   }
 }

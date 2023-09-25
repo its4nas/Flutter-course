@@ -1,4 +1,5 @@
 import 'package:first_test/Home.dart';
+import 'package:first_test/MainPage.dart';
 import 'package:first_test/signup.dart';
 import 'package:flutter/material.dart';
 
@@ -33,9 +34,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            FlutterLogo(
-              size: 80,
-            ),
+            Image.asset("assets/images/ic_launcher.png"),
             SizedBox(height: 16.0),
             Text(
               'Welcome to EzApp',
@@ -87,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                 String password = _passwordController.text;
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) {
-                    return EzMainPage();
+                    return MainPage();
                   },)
                 );
               },

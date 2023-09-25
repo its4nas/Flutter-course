@@ -38,9 +38,7 @@ class _SignupPageState extends State<SignupPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            FlutterLogo(
-              size: 80,
-            ),
+            Image.asset("assets/images/ic_launcher.png"),
             SizedBox(height: 16.0),
             Text(
               'Welcome to EzApp',

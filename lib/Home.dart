@@ -1,285 +1,171 @@
-import 'package:first_test/login.dart';
 import 'package:flutter/material.dart';
-import 'Profile.dart';
-import 'post.dart';
+import 'ProfileInfo.dart';
+// import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class EzMainPage extends StatefulWidget {
+class ViewListPage extends StatefulWidget {
   @override
-  _EzMainPageState createState() => _EzMainPageState();
+  _ViewListPageState createState() => _ViewListPageState();
 }
 
-class _EzMainPageState extends State<EzMainPage> {
-  int _currentIndex = 0;
-
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
+class _ViewListPageState extends State<ViewListPage> {
+  List<Profile> profileList = [
+    Profile(
+      name: 'Anas Al-Dharei',
+      jobTitle: 'Software Engineer',
+      about: 'Hi my name is Anas, I am a software Engineer. I live in Yemen with my family. I was born in 2001 so I am 23 years old. I love watching soccer and playing it. Finally F Messi',
+    ),
+    Profile(
+      name: 'MO Al-Dharei',
+      jobTitle: 'UIUX Designer',
+      about: 'Hi my name is Anas, I am a UIUX Designer. I live in Yemen with my family. I was born in 2001 so I am 23 years old. I love watching soccer and playing it. Finally F Messi',
+    ),
+    Profile(
+      name: 'David Johnson',
+      jobTitle: 'UX Designer',
+      about: 'Phasellus eu tellus nec nulla dapibus suscipit. Sed vel faucibus mauris. Morbi non felis sit amet orci tristique fringilla eu eu metus. Donec ut mi sed nisl elementum accumsan.',
+    ),
+    Profile(
+      name: 'David Johnson',
+      jobTitle: 'UX Designer',
+      about: 'Phasellus eu tellus nec nulla dapibus suscipit. Sed vel faucibus mauris. Morbi non felis sit amet orci tristique fringilla eu eu metus. Donec ut mi sed nisl elementum accumsan.',
+    ),
+    Profile(
+      name: 'Anas Al-Dharei',
+      jobTitle: 'Software Engineer',
+      about: 'Hi my name is Anas, I am a software Engineer. I live in Yemen with my family. I was born in 2001 so I am 23 years old. I love watching soccer and playing it. Finally F Messi',
+    ),
+    Profile(
+      name: 'MO Al-Dharei',
+      jobTitle: 'UIUX Designer',
+      about: 'Hi my name is Anas, I am a UIUX Designer. I live in Yemen with my family. I was born in 2001 so I am 23 years old. I love watching soccer and playing it. Finally F Messi',
+    ),
+    Profile(
+      name: 'David Johnson',
+      jobTitle: 'UX Designer',
+      about: 'Phasellus eu tellus nec nulla dapibus suscipit. Sed vel faucibus mauris. Morbi non felis sit amet orci tristique fringilla eu eu metus. Donec ut mi sed nisl elementum accumsan.',
+    ),
+    Profile(
+      name: 'David Johnson',
+      jobTitle: 'UX Designer',
+      about: 'Phasellus eu tellus nec nulla dapibus suscipit. Sed vel faucibus mauris. Morbi non felis sit amet orci tristique fringilla eu eu metus. Donec ut mi sed nisl elementum accumsan.',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Ez'),
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Handle floating action button press
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.deepPurple,
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.deepPurple,
-              ),
-              child: Row(
-                children: [
-                  CircleAvatar(child: Icon(Icons.person)),
-                  Text(
-                    ' Name',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
-              onTap: () {
-                //
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text('Profile'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.login),
-              title: Text('Login'),
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () {
-                // Handle drawer item tap
-              },
-            ),
-          ],
-        ),
-      ),
       body: ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EzPostDetailsPage(
-                    username: 'Anas',
-                    content: 'this is some content',
-                    timestamp: '1 hr ago',
-                    comments: ["nigga", "nigger"],
+        itemCount: profileList.length,
+        itemBuilder: (context, index) {
+          return ProfileCard(
+            profile: profileList[index],
+            onLike: () {
+              setState(() {
+                profileList[index].liked = !profileList[index].liked;
+              });
+            },
+            onShare: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.deepPurple[300],
+                  content: Text("Link of ${profileList[index].name} has copied"),
+                  action: SnackBarAction(
+                    label: 'Close',
+                    onPressed: () {
+                      // Code to execute.
+                    },
                   ),
                 ),
               );
             },
-            child: EzPostCard(
-              username: 'John Doe',
-              content: 'This is a Job example.',
-              timestamp: '1h ago',
-              comments: ['Comment 1', 'Comment 2', 'Comment 3'],
-            ),
           );
         },
-        itemCount: 5, // Replace with the actual number of tweets
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        backgroundColor: Colors.deepPurple, // Set the background color
-        selectedItemColor: Colors.deepPurple, // Set the selected item color
-        unselectedItemColor: Colors.grey, // Set the unselected item color
-        onTap: _onTabTapped,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            label: 'Explore',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
       ),
     );
   }
 }
 
-class EzPostCard extends StatelessWidget {
-  final String username;
-  final String content;
-  final String timestamp;
-  final List<String> comments;
+class Profile {
+  final String name;
+  final String jobTitle;
+  final String about;
+  bool liked;
 
-  EzPostCard({
-    required this.username,
-    required this.content,
-    required this.timestamp,
-    required this.comments,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  child: Icon(Icons.person),
-                ),
-                SizedBox(width: 8.0),
-                Text(
-                  username,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 8.0),
-            Text(
-              content,
-              style: TextStyle(fontSize: 16.0),
-            ),
-            SizedBox(height: 8.0),
-            Text(
-              timestamp,
-              style: TextStyle(color: Colors.grey),
-            ),
-            SizedBox(height: 8.0),
-            Row(
-              children: [
-                IconButton(
-                  icon: Icon(Icons.comment),
-                  onPressed: () {
-                    // Handle comment button press
-                  },
-                ),
-                Text('${comments.length} comments'),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  Profile({required this.name, required this.jobTitle, required this.about, this.liked = false});
 }
 
-class EzPostDetailsPage extends StatelessWidget {
-  final String username;
-  final String content;
-  final String timestamp;
-  final List<String> comments;
+class ProfileCard extends StatelessWidget {
+  final Profile profile;
+  final VoidCallback onLike;
+  final VoidCallback onShare;
 
-  EzPostDetailsPage({
-    required this.username,
-    required this.content,
-    required this.timestamp,
-    required this.comments,
-  });
+  ProfileCard({required this.profile, required this.onLike, required this.onShare});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Post Details'),
-        backgroundColor: Colors.deepPurple,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  child: Icon(Icons.person),
-                ),
-                SizedBox(width: 8.0),
-                Text(
-                  username,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProfileDetailPage(profile: profile, numLikes: 25),
+          ),
+        );
+      },
+      child: Card(
+        margin: EdgeInsets.all(8.0),
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/ic_launcher.png'),
+                    radius: 30.0,
                   ),
+                  SizedBox(width: 10.0),
+                  Text(
+                    profile.name,
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.0),
+              Text(
+                profile.jobTitle,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.grey,
                 ),
-              ],
-            ),
-            SizedBox(height: 8.0),
-            Text(
-              content,
-              style: TextStyle(fontSize: 16.0),
-            ),
-            SizedBox(height: 8.0),
-            Text(
-              timestamp,
-              style: TextStyle(color: Colors.grey),
-            ),
-            SizedBox(height: 8.0),
-            Text(
-              'Comments:',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16.0,
               ),
-            ),
-            SizedBox(height: 8.0),
-            Expanded(
-              child: ListView.builder(
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text(comments[index]),
-                  );
-                },
-                itemCount: comments.length,
+              SizedBox(height: 10.0),
+              Text(
+                profile.about,
+                style: TextStyle(fontSize: 16.0),
               ),
-            ),
-          ],
+              SizedBox(height: 10.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(profile.liked ? Icons.favorite : Icons.favorite_border),
+                    color: Colors.red,
+                    onPressed: onLike,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.share),
+                    color: Colors.deepPurple,
+                    onPressed: onShare,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

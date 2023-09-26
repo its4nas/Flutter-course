@@ -9,15 +9,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +16,6 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
             colors: [Colors.deepPurple, Colors.deepPurple],
           ),
         ),
@@ -48,7 +37,6 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 32.0),
               child: TextFormField(
-                controller: _emailController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -65,7 +53,6 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 32.0),
               child: TextFormField(
-                controller: _passwordController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -82,8 +69,6 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 32.0),
             ElevatedButton(
               onPressed: () {
-                String email = _emailController.text;
-                String password = _passwordController.text;
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) {
                     return MainPage();
@@ -122,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Text(
                 'Do not have an account?',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.blue,
                 ),
               ),
             ),

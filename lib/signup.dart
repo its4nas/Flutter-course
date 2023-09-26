@@ -7,30 +7,13 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _firstNameController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    _phoneController.dispose();
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body:  Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
             colors: [Colors.deepPurple, Colors.deepPurple],
           ),
         ),
@@ -89,9 +72,8 @@ class _SignupPageState extends State<SignupPage> {
             ),
             SizedBox(height: 16.0),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32.0),
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: TextFormField(
-                controller: _emailController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -106,9 +88,8 @@ class _SignupPageState extends State<SignupPage> {
             ),
             SizedBox(height: 16.0),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32.0),
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: TextFormField(
-                controller: _phoneController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -123,9 +104,8 @@ class _SignupPageState extends State<SignupPage> {
             ),
             SizedBox(height: 16.0),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32.0),
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: TextFormField(
-                controller: _passwordController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -142,8 +122,6 @@ class _SignupPageState extends State<SignupPage> {
             SizedBox(height: 32.0),
             ElevatedButton(
               onPressed: () {
-                String email = _emailController.text;
-                String password = _passwordController.text;
                 // Handle login button press with email and password
               },
               child: Text('Confirm', style: TextStyle(color: Colors.deepPurple, fontSize: 15, fontWeight: FontWeight.bold),),

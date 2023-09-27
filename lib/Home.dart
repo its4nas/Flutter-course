@@ -51,18 +51,61 @@ class _ViewListPageState extends State<ViewListPage> {
     ),
   ];
 
+  String selectedFilter = 'All'; // Default filter
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: profileList.length,
-        itemBuilder: (context, index) {
-          return ProfileCard(
-            profile: profileList[index],
-            onLike: () {
+    return Scaffold(body: Column(
+        children: [
+    Padding(
+    padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          FilterButton(
+            text: 'All',
+            isSelected: selectedFilter == 'All',
+            onTap: () {
               setState(() {
-                profileList[index].liked = !profileList[index].liked;
+                selectedFilter = 'All';
               });
+            },
+          ),
+          FilterButton(
+            text: 'Software Engineer',
+            isSelected: selectedFilter == 'Software Engineer',
+            onTap: () {
+              setState(() {
+                selectedFilter = 'Software Engineer';
+              });
+            },
+          ),
+          FilterButton(
+            text: 'UIUX Designer',
+            isSelected: selectedFilter == 'UIUX Designer',
+            onTap: () {
+              setState(() {
+                selectedFilter = 'UIUX Designer';
+              });
+            },
+          ),
+        ],
+      ),
+    ),
+    Expanded(
+    child: ListView.builder(
+        itemCount: profileList.length,
+        itemBuilder: (context, index) {final profile = profileList[index];
+        if (selectedFilter != 'All' &&
+            profile.jobTitle != selectedFilter) {
+          return Container(); // Skip the profile if it doesn't match the selected filter
+        }
+        return ProfileCard(
+          profile: profileList[index],
+          onLike: () {
+            setState(() {
+              profileList[index].liked = !profileList[index].liked;
+            });
             },
             onShare: () {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -81,9 +124,13 @@ class _ViewListPageState extends State<ViewListPage> {
           );
         },
       ),
+    ),
+    ],
+    ),
     );
   }
 }
+
 
 class Profile {
   final String name;
@@ -165,6 +212,40 @@ class ProfileCard extends StatelessWidget {
                 ],
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FilterButton extends StatelessWidget {
+  final String text;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const FilterButton({
+    required this.text,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.deepPurple : Colors.transparent,
+          borderRadius: BorderRadius.circular(20.0),
+          border: Border.all(color: Colors.deepPurple),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: isSelected ? Colors.white : Colors.deepPurple,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),

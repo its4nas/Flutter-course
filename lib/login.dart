@@ -13,17 +13,27 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.deepPurple, Colors.deepPurple],
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Image.asset("assets/images/ic_launcher.png"),
+        body: Center(
+        child: Container(
+        height: MediaQuery.of(context).size.height, // Set container height to full screen height
+    decoration: BoxDecoration(
+    gradient: LinearGradient(
+    colors: [Colors.deepPurple, Colors.deepPurple],
+    ),
+    ),
+    child: SingleChildScrollView(
+    child: Container(
+    decoration: BoxDecoration(
+    gradient: LinearGradient(
+    colors: [Colors.deepPurple, Colors.deepPurple],
+    ),
+    ),
+    child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+    SizedBox(height: 150.0,),
+    Image.asset("assets/images/ic_launcher.png", width: 100,),
             SizedBox(height: 16.0),
             Text(
               'Welcome to EzApp',
@@ -114,6 +124,9 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
+    ),
+    ),
+        ),
     );
   }
 }

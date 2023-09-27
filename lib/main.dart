@@ -4,7 +4,6 @@ import 'MainPage.dart';
 import 'first.dart';
 import 'second.dart';
 import 'Home.dart';
-import 'ProfileInfo.dart';
 import 'signup.dart';
 
 void main() {
@@ -22,6 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
+      debugShowCheckedModeBanner: false,
       home: MainPage()
     );
   }

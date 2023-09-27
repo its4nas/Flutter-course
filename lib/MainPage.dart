@@ -2,7 +2,6 @@ import 'package:first_test/Home.dart';
 import 'package:first_test/login.dart';
 import 'package:first_test/profile.dart';
 import 'package:flutter/material.dart';
-
 import 'settings.dart';
 
 class MainPage extends StatefulWidget {
@@ -15,8 +14,8 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _pages = [
     ViewListPage(),
-    ProfilePage(numLikes: 42),
-    settings(),
+    ProfilePage(numLikes: 25),
+    SettingsPage(),
   ];
 
   @override

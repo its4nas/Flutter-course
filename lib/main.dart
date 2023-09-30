@@ -1,10 +1,5 @@
-import 'package:first_test/second.dart';
 import 'package:flutter/material.dart';
 import 'MainPage.dart';
-import 'first.dart';
-import 'second.dart';
-import 'Home.dart';
-import 'signup.dart';
 
 void main() {
   runApp(const MyApp());

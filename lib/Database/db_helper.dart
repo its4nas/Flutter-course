@@ -51,12 +51,12 @@ class DbHelper
     return schoolDB;
   }
 
-  Future<int> add_user(Map<String, dynamic> obj)async
+  Future<int> add_user(String tbl,Map<String, dynamic> obj)async
   {
     try
         {
           var db = await database;
-          var result = db.insert(DBTables.Users, obj);
+          var result = db.insert(tbl, obj);
           return result;
         }
 
@@ -66,10 +66,10 @@ class DbHelper
     }
   }
 
-  Future<List<Map<String, dynamic>>> get_profiles()async
+  Future<List<Map<String, dynamic>>> get_users(String tbl)async
   {
       var db = await database;
-      var result = db.query(DBTables.Users);
+      var result = db.query(tbl);
       return result;
   }
 

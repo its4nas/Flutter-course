@@ -7,6 +7,7 @@ class user_repository
   {
       try
       {
+        await Future.delayed(Duration(seconds: 2));
         var result = await DbHelper().add_user(DBTables.Users, obj);
         return result;
       }

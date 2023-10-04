@@ -1,4 +1,5 @@
 import 'package:first_test/login.dart';
+import 'package:first_test/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatefulWidget {
@@ -7,6 +8,22 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  bool loading = false;
+  bool isError = false;
+  bool isSuccess = false;
+  String error = "";
+  String success = "";
+
+  var formKey = GlobalKey<FormState>();
+
+  var _emailController = TextEditingController();
+  var _passwordController = TextEditingController();
+  var _phoneController = TextEditingController();
+  var _firstNameController = TextEditingController();
+  var _lastNameController = TextEditingController();
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +64,19 @@ class _SignupPageState extends State<SignupPage> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0),
                       child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value)
+                        {
+                          if(value == null)
+                            return "first name cannot be empty";
+
+                          if(value!=null)
+                          {
+                            if(value.length < 2)
+                              return "first name must be more than 1 letter";
+                          }
+                        },
+                        controller: _firstNameController,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -64,6 +94,19 @@ class _SignupPageState extends State<SignupPage> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0),
                       child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value)
+                        {
+                          if(value == null)
+                            return "last name cannot be empty";
+
+                          if(value!=null)
+                          {
+                            if(value.length < 2)
+                              return "last name must be more than 1 letter";
+                          }
+                        },
+                        controller: _lastNameController,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -83,6 +126,19 @@ class _SignupPageState extends State<SignupPage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value)
+                  {
+                    if(value == null)
+                      return "Value is null";
+
+                    if(value!=null)
+                      {
+                        if(value.length < 12)
+                          return "Text length must be more than 12 letters";
+                      }
+                  },
+                  controller: _emailController,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -95,26 +151,52 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
               ),
+              // SizedBox(height: 16.0),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 20.0),
+              //   child: TextFormField(
+              //     autovalidateMode: AutovalidateMode.onUserInteraction,
+              //     validator: (value)
+              //     {
+              //       if(value == null)
+              //         return "phone cannot be empty";
+              //
+              //       if(value!=null)
+              //       {
+              //         if(value.length < 9)
+              //           return "phone length must be more than 9 numbers";
+              //       }
+              //     },
+              //     controller: _phoneController,
+              //     decoration: InputDecoration(
+              //       filled: true,
+              //       fillColor: Colors.white,
+              //       hintText: 'Phone Number',
+              //       border: OutlineInputBorder(
+              //         borderRadius: BorderRadius.circular(8.0),
+              //         borderSide: BorderSide.none,
+              //       ),
+              //       prefixIcon: Icon(Icons.phone),
+              //     ),
+              //   ),
+              // ),
               SizedBox(height: 16.0),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: TextFormField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'Phone Number',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: Icon(Icons.phone),
-                  ),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value)
+                  {
+                    if(value == null)
+                      return "password cannot be null";
+
+                    if(value!=null)
+                    {
+                      if(value.length < 9)
+                        return "password must be more than 8 letters & numbers";
+                    }
+                  },
+                  controller: _passwordController,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -129,9 +211,59 @@ class _SignupPageState extends State<SignupPage> {
                 ),
               ),
               SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: () {
-                  // Handle login button press with email and password
+              loading?CircularProgressIndicator(): TextButton(
+                onPressed: ()async {
+                  if(formKey.currentState!.validate())
+                    {
+                      try
+                        {
+                          setState(() {
+                            loading = true;
+                            isSuccess = false;
+                            isError = false;
+                          });
+                          var data = {
+                            "firstName":_firstNameController.text,
+                            "lastName":_lastNameController.text,
+                            "email":_emailController.text,
+                            // "Phone":_phoneController.text,
+                            "password":_passwordController,
+                          };
+
+                          var addRes = await user_repository().add_user(data);
+                          if(addRes > 0)
+                            {
+                              setState(() {
+                                loading = false;
+                                isSuccess = true;
+                                isError = false;
+                                error = "";
+                              });
+                            }
+                          else
+                            {
+                              setState(() {
+                                loading = false;
+                                isSuccess = false;
+                                isError = true;
+                                error = "something went worng";
+                              });
+                            }
+                        }
+                      catch(e)
+                        {
+                          setState(() {
+                            loading = false;
+                            isSuccess = false;
+                            isError = true;
+                            error = "exp: ${e.toString()}";
+                          });
+                        }
+                    }
+                  else
+                    {
+
+                    }
                 },
                 child: Text('Confirm', style: TextStyle(color: Colors.deepPurple, fontSize: 15, fontWeight: FontWeight.bold),),
                 style: ElevatedButton.styleFrom(
@@ -142,6 +274,8 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
               ),
+              isError? Text("Error: $error",style: TextStyle(color: Colors.red),):SizedBox(),
+              isSuccess? Text("Added successfully"):SizedBox(),
               SizedBox(height: 16.0),
               TextButton(
                 onPressed: () {

@@ -10,6 +10,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+  var _emailController = TextEditingController();
+  var _passwordController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +51,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 32.0),
               child: TextFormField(
+                controller: _emailController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -63,6 +68,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 32.0),
               child: TextFormField(
+                controller: _passwordController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -79,6 +85,8 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 32.0),
             ElevatedButton(
               onPressed: () {
+                String email = _emailController.text;
+                String password = _passwordController.text;
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) {
                     return MainPage();

@@ -8,7 +8,7 @@ class DBTables
   static const String Users = "Users";
 }
 
-String _usertable = 'CREATE TABLE ${DBTables.Users} (Id INTEGER PRIMARY KEY AUTOINCREMENT, FirstName TEXT, LastName TEXT, Job TEXT NULL, Description TEXT NULL, Email TEXT, Password Text, Image TEXT NULL)';
+String _usertable = 'CREATE TABLE ${DBTables.Users} (Id INTEGER PRIMARY KEY AUTOINCREMENT, FirstName TEXT, LastName TEXT, Email TEXT, Password Text)';
 
 
 class DbHelper

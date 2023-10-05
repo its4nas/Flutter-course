@@ -1,3 +1,5 @@
+import 'package:first_test/models/UserModel.dart';
+import 'package:first_test/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
 import 'ProfileInfo.dart';
 // import 'package:flutter_rating_bar/flutter_rating_bar.dart';

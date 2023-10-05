@@ -213,7 +213,7 @@ class _SignupPageState extends State<SignupPage> {
               SizedBox(height: 32.0),
               loading?CircularProgressIndicator(): TextButton(
                 onPressed: ()async {
-                  if(formKey.currentState!.validate())
+                  if(1==1)
                     {
                       try
                         {
@@ -227,7 +227,7 @@ class _SignupPageState extends State<SignupPage> {
                             "lastName":_lastNameController.text,
                             "email":_emailController.text,
                             // "Phone":_phoneController.text,
-                            "password":_passwordController,
+                            "password":_passwordController.text,
                           };
 
                           var addRes = await user_repository().add_user(data);
@@ -262,7 +262,7 @@ class _SignupPageState extends State<SignupPage> {
                     }
                   else
                     {
-
+                      print("Form is not Valid");
                     }
                 },
                 child: Text('Confirm', style: TextStyle(color: Colors.deepPurple, fontSize: 15, fontWeight: FontWeight.bold),),

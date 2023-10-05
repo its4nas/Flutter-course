@@ -1,3 +1,4 @@
+import 'package:first_test/show.dart';
 import 'package:flutter/material.dart';
 import 'MainPage.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
       ),
       debugShowCheckedModeBanner: false,
-      home: MainPage()
+      home: showall()
     );
   }
 }

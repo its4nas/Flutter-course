@@ -8,8 +8,7 @@ class DBTables
   static const String Users = "Users";
 }
 
-String _usertable = 'CREATE TABLE ${DBTables.Users} (Id INTEGER PRIMARY KEY AUTOINCREMENT, FirstName TEXT, LastName TEXT, Email TEXT, Password Text)';
-
+String _usertable = 'CREATE TABLE ${DBTables.Users} (Id INTEGER PRIMARY KEY AUTOINCREMENT, FirstName TEXT, LastName TEXT, Job TEXT NULL, Description TEXT NULL, Phone Text, Email TEXT, Password Text, Image TEXT NULL, Liked INTEGER NULL)';
 
 class DbHelper
 {
@@ -37,7 +36,7 @@ class DbHelper
     Directory dbFolderDir = await Directory(dbPath).create(recursive: true);
 
     // Android/data/project_name/files/Database/school.db
-    final file = File(p.join(dbFolderDir.path, 'ez.db'));
+    final file = File(p.join(dbFolderDir.path, 'a.db'));
     var schoolDB = await openDatabase(
       file.path,
       version: dbVersion,

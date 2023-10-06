@@ -1,8 +1,11 @@
+import 'package:first_test/models/UserModel.dart';
+import 'package:first_test/show.dart';
 import 'package:flutter/material.dart';
 import 'Home.dart';
 
+
 class ProfileDetailPage extends StatelessWidget {
-  final Profile profile;
+  final UserModel profile;
   final int numLikes;
 
   ProfileDetailPage({required this.profile, required this.numLikes, });
@@ -11,7 +14,7 @@ class ProfileDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(profile.name),
+        title: Text("${profile.firstName}"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -25,7 +28,7 @@ class ProfileDetailPage extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             Text(
-              profile.name,
+              "${profile.firstName} ${profile.lastName}",
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
@@ -48,7 +51,7 @@ class ProfileDetailPage extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             Text(
-              profile.jobTitle,
+              "${profile.email}",
               style: TextStyle(
                 fontSize: 16.0,
                 color: Colors.grey,
@@ -64,7 +67,7 @@ class ProfileDetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'About Me',
+                        "${profile.password}",
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
@@ -72,7 +75,7 @@ class ProfileDetailPage extends StatelessWidget {
                       ),
                       SizedBox(height: 10.0),
                       Text(
-                        profile.about,
+                        "profile.about",
                       ),
                     ],
                   ),

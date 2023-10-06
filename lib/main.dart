@@ -1,5 +1,6 @@
 import 'package:first_test/show.dart';
 import 'package:flutter/material.dart';
+import 'Home.dart';
 import 'MainPage.dart';
 
 void main() {
@@ -13,12 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Test',
+      title: 'Ez',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
       debugShowCheckedModeBanner: false,
-      home: showall()
+      home: MainPage()
     );
   }
 }

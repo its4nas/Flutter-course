@@ -151,35 +151,35 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
               ),
-              // SizedBox(height: 16.0),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: 20.0),
-              //   child: TextFormField(
-              //     autovalidateMode: AutovalidateMode.onUserInteraction,
-              //     validator: (value)
-              //     {
-              //       if(value == null)
-              //         return "phone cannot be empty";
-              //
-              //       if(value!=null)
-              //       {
-              //         if(value.length < 9)
-              //           return "phone length must be more than 9 numbers";
-              //       }
-              //     },
-              //     controller: _phoneController,
-              //     decoration: InputDecoration(
-              //       filled: true,
-              //       fillColor: Colors.white,
-              //       hintText: 'Phone Number',
-              //       border: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(8.0),
-              //         borderSide: BorderSide.none,
-              //       ),
-              //       prefixIcon: Icon(Icons.phone),
-              //     ),
-              //   ),
-              // ),
+              SizedBox(height: 16.0),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value)
+                  {
+                    if(value == null)
+                      return "phone cannot be empty";
+
+                    if(value!=null)
+                    {
+                      if(value.length < 9)
+                        return "phone length must be more than 9 numbers";
+                    }
+                  },
+                  controller: _phoneController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    hintText: 'Phone Number',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide.none,
+                    ),
+                    prefixIcon: Icon(Icons.phone),
+                  ),
+                ),
+              ),
               SizedBox(height: 16.0),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -226,7 +226,7 @@ class _SignupPageState extends State<SignupPage> {
                             "firstName":_firstNameController.text,
                             "lastName":_lastNameController.text,
                             "email":_emailController.text,
-                            // "Phone":_phoneController.text,
+                            "Phone":_phoneController.text,
                             "password":_passwordController.text,
                           };
 

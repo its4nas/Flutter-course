@@ -1,7 +1,10 @@
 import 'package:first_test/Home.dart';
 import 'package:first_test/MainPage.dart';
+import 'package:first_test/repositories/UserRepository.dart';
 import 'package:first_test/signup.dart';
 import 'package:flutter/material.dart';
+
+import 'models/UserModel.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,6 +15,17 @@ class _LoginPageState extends State<LoginPage> {
 
   var _emailController = TextEditingController();
   var _passwordController = TextEditingController();
+
+
+  List<UserModel> profileList = [];
+
+  void fetchProfiles() async {
+    List<UserModel> profiles = await user_repository().getAllUsers();
+    setState(() {
+      profileList = profiles;
+    });
+  }
+
 
 
   @override
@@ -87,11 +101,19 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () {
                 String email = _emailController.text;
                 String password = _passwordController.text;
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) {
-                    return MainPage();
-                  },)
-                );
+                if(email == "anas" && password == "123")
+                  {
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) {
+                          return MainPage();
+                        },)
+                    );
+                  }
+                else
+                  {
+                    print("wrong");
+                  }
+
               },
               child: Text('Log In', style: TextStyle(color: Colors.deepPurple, fontSize: 15, fontWeight: FontWeight.bold),),
               style: ElevatedButton.styleFrom(

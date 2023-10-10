@@ -1,4 +1,3 @@
-import 'package:first_test/Home.dart';
 import 'package:first_test/MainPage.dart';
 import 'package:first_test/repositories/UserRepository.dart';
 import 'package:first_test/signup.dart';
@@ -99,9 +98,34 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 32.0),
             ElevatedButton(
               onPressed: () {
+
+                //-------------------test from this line --------------------------
+                List<UserModel> profileList = [];
+
+                void fetchProfiles() async {
+                  List<UserModel> profiles = await user_repository().getAllUsers();
+                  setState(() {
+                    profileList = profiles;
+                  });
+                }
+
+                String? fetched_email;
+                String? fetched_password;
+                int? fetched_id;
+
+                for(int i=3; i<profileList.length; i++)
+                  {
+                    fetched_email = profileList[i].email;
+                    fetched_password = profileList[i].password;
+                    fetched_id = profileList[i].id;
+                  }
+                print(fetched_email);
+
+                //-------------------test to this line --------------------------
+
                 String email = _emailController.text;
                 String password = _passwordController.text;
-                if(email == "anas" && password == "123")
+                if(email == fetched_email && password == fetched_password)
                   {
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) {

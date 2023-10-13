@@ -1,25 +1,33 @@
-import 'package:first_test/Home.dart';
-import 'package:first_test/login.dart';
-import 'package:first_test/profile.dart';
 import 'package:flutter/material.dart';
+import 'models/UserModel.dart';
+import 'Home.dart';
+import 'login.dart';
+import 'profile.dart';
 import 'settings.dart';
 
 class MainPage extends StatefulWidget {
+  final UserModel? profile;
+
+  MainPage({required this.profile});
+
   @override
-  _MainPageState createState() => _MainPageState();
+  _MainPageState createState() => _MainPageState(profile: profile);
 }
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
+  UserModel? profile;
 
-  final List<Widget> _pages = [
-    ShowAll(),
-    ProfilePage(numLikes: 25),
-    SettingsPage(),
-  ];
+  _MainPageState({required this.profile});
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _pages = [
+      ShowAll(),
+      ProfilePage(profile: profile),
+      SettingsPage(),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Ez'),
@@ -28,7 +36,7 @@ class _MainPageState extends State<MainPage> {
       ),
       drawer: Drawer(
         child: ListView(
-          padding: EdgeInsets.zero, //safeArea
+          padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
               decoration: BoxDecoration(
@@ -40,9 +48,9 @@ class _MainPageState extends State<MainPage> {
                     radius: 30.0,
                     backgroundImage: AssetImage('assets/images/ic_launcher.png'),
                   ),
-                  SizedBox.fromSize(size: Size.fromWidth(10.0),),
+                  SizedBox.fromSize(size: Size.fromWidth(10.0)),
                   Text(
-                    ' Ronaldo',
+                    '${profile?.firstName}',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24,
@@ -55,10 +63,10 @@ class _MainPageState extends State<MainPage> {
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MainPage()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => MainPage()),
+                // );
               },
             ),
             ListTile(
@@ -81,8 +89,6 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
       ),
-
-
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -104,7 +110,6 @@ class _MainPageState extends State<MainPage> {
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
-
         ],
       ),
     );

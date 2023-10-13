@@ -1,8 +1,9 @@
+import 'package:first_test/models/UserModel.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
-  final int numLikes;
-  ProfilePage({required this.numLikes});
+  final UserModel? profile;
+  ProfilePage({required this.profile});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             Text(
-              'Anas Al-Dharei',
+              '${profile?.firstName}',
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
@@ -31,7 +32,7 @@ class ProfilePage extends StatelessWidget {
                 Icon(Icons.favorite, color: Colors.red),
                 SizedBox(width: 5.0),
                 Text(
-                  '$numLikes Likes',
+                  '${profile?.liked} Likes',
                   style: TextStyle(
                     fontSize: 16.0,
                     color: Colors.grey,
@@ -41,7 +42,7 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             Text(
-              'Software Engineer',
+              '${profile?.job}',
               style: TextStyle(
                 fontSize: 16.0,
                 color: Colors.grey,
@@ -65,7 +66,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       SizedBox(height: 10.0),
                       Text(
-                        'Hi my name is Anas, I am a software Engineer. I live in Yemen with my family. I was born in 2001 so I am 23 years old. I love watching soccer and playing it. Finally F Messi',
+                        '${profile?.description}',
                       ),
                     ],
                   ),

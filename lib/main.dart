@@ -1,3 +1,4 @@
+import 'package:first_test/login.dart';
 import 'package:first_test/show.dart';
 import 'package:flutter/material.dart';
 import 'Home.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
       ),
       debugShowCheckedModeBanner: false,
-      home: MainPage()
+      home: MainPage(profile: null,)
     );
   }
 }

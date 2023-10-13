@@ -9,6 +9,7 @@ class UserModel {
       this.phone,
       this.password, 
       this.image,
+      this.liked,
   });
 
   UserModel.fromJson(dynamic json) {
@@ -21,6 +22,7 @@ class UserModel {
     phone = json['Phone'];
     password = json['Password'];
     image = json['Image'];
+    image = json['Liked'];
   }
   int? id;
   String? firstName;
@@ -31,6 +33,7 @@ class UserModel {
   String? phone;
   String? password;
   String? image;
+  int? liked;
 UserModel copyWith({  int? id,
   String? firstName,
   String? lastName,
@@ -40,6 +43,7 @@ UserModel copyWith({  int? id,
   String?phone,
   String? password,
   String? image,
+  int? liked,
 }) => UserModel(  id: id ?? this.id,
   firstName: firstName ?? this.firstName,
   lastName: lastName ?? this.lastName,
@@ -49,6 +53,7 @@ UserModel copyWith({  int? id,
   phone: phone ?? this.phone,
   password: password ?? this.password,
   image: image ?? this.image,
+  liked: liked ?? this.liked,
 );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -61,6 +66,7 @@ UserModel copyWith({  int? id,
     map['Phone'] = phone;
     map['Password'] = password;
     map['Image'] = image;
+    map['Liked'] = liked;
     return map;
   }
 

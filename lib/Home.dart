@@ -124,7 +124,7 @@ class ProfileCard extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ProfileDetailPage(profile: profile, numLikes: 25),
+          builder: (context) => ProfileDetailPage(profile: profile),
         ),
       );
     },
@@ -161,17 +161,20 @@ class ProfileCard extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             Text(
-              "${profile.phone}",
+              "${profile.description}",
               style: TextStyle(fontSize: 16.0),
             ),
             SizedBox(height: 10.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Text("${profile.liked}"),
                 IconButton(
                   icon: Icon(Icons.favorite_border),
                   color: Colors.red,
-                  onPressed: onLike,
+                  onPressed: () => {
+                    profile.liked = 1,
+                  },
                 ),
                 IconButton(
                   icon: Icon(Icons.share),

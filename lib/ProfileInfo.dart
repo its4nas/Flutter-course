@@ -6,9 +6,8 @@ import 'Home.dart';
 
 class ProfileDetailPage extends StatelessWidget {
   final UserModel profile;
-  final int numLikes;
 
-  ProfileDetailPage({required this.profile, required this.numLikes, });
+  ProfileDetailPage({required this.profile});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,7 @@ class ProfileDetailPage extends StatelessWidget {
                 Icon(Icons.favorite, color: Colors.red),
                 SizedBox(width: 5.0),
                 Text(
-                  '$numLikes Likes',
+                  '${profile.description}',
                   style: TextStyle(
                     fontSize: 16.0,
                     color: Colors.grey,

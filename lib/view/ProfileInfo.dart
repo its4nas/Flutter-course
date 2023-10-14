@@ -1,13 +1,21 @@
 import 'package:first_test/models/UserModel.dart';
+import 'package:first_test/view/show.dart';
 import 'package:flutter/material.dart';
+import 'Home.dart';
 
-class ProfilePage extends StatelessWidget {
-  final UserModel? profile;
-  ProfilePage({required this.profile});
+
+class ProfileDetailPage extends StatelessWidget {
+  final UserModel profile;
+
+  ProfileDetailPage({required this.profile});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("${profile.firstName}"),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -19,7 +27,7 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             Text(
-              '${profile?.firstName}',
+              "${profile.firstName} ${profile.lastName}",
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
@@ -32,7 +40,7 @@ class ProfilePage extends StatelessWidget {
                 Icon(Icons.favorite, color: Colors.red),
                 SizedBox(width: 5.0),
                 Text(
-                  '${profile?.liked} Likes',
+                  '${profile.description}',
                   style: TextStyle(
                     fontSize: 16.0,
                     color: Colors.grey,
@@ -42,7 +50,7 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             Text(
-              '${profile?.job}',
+              "${profile.email}",
               style: TextStyle(
                 fontSize: 16.0,
                 color: Colors.grey,
@@ -58,7 +66,7 @@ class ProfilePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'About Me',
+                        "${profile.password}",
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
@@ -66,19 +74,12 @@ class ProfilePage extends StatelessWidget {
                       ),
                       SizedBox(height: 10.0),
                       Text(
-                        '${profile?.description}',
+                        "profile.about",
                       ),
                     ],
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                // Add functionality for editing the profile
-              },
-              child: Text('Edit Profile'),
             ),
           ],
         ),

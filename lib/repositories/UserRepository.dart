@@ -18,6 +18,20 @@ class user_repository
   }
 
 
+  Future<int> delete(int id)async
+  {
+    try
+    {
+      var result = await DbHelper().delete_user(DBTables.Users, id);
+      return result;
+    }
+    catch(e)
+    {
+      return 0;
+    }
+  }
+
+
   Future<List<UserModel>> getAllUsers()async
   {
     try

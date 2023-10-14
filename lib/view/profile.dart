@@ -1,21 +1,14 @@
 import 'package:first_test/models/UserModel.dart';
-import 'package:first_test/show.dart';
+import 'package:first_test/view/DeleteUserView.dart';
 import 'package:flutter/material.dart';
-import 'Home.dart';
 
-
-class ProfileDetailPage extends StatelessWidget {
-  final UserModel profile;
-
-  ProfileDetailPage({required this.profile});
+class ProfilePage extends StatelessWidget {
+  final UserModel? profile;
+  ProfilePage({required this.profile});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("${profile.firstName}"),
-        centerTitle: true,
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -27,7 +20,7 @@ class ProfileDetailPage extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             Text(
-              "${profile.firstName} ${profile.lastName}",
+              '${profile?.firstName}',
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
@@ -40,7 +33,7 @@ class ProfileDetailPage extends StatelessWidget {
                 Icon(Icons.favorite, color: Colors.red),
                 SizedBox(width: 5.0),
                 Text(
-                  '${profile.description}',
+                  '${profile?.liked} Likes',
                   style: TextStyle(
                     fontSize: 16.0,
                     color: Colors.grey,
@@ -50,7 +43,7 @@ class ProfileDetailPage extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             Text(
-              "${profile.email}",
+              '${profile?.job}',
               style: TextStyle(
                 fontSize: 16.0,
                 color: Colors.grey,
@@ -66,7 +59,7 @@ class ProfileDetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "${profile.password}",
+                        'About Me',
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
@@ -74,13 +67,38 @@ class ProfileDetailPage extends StatelessWidget {
                       ),
                       SizedBox(height: 10.0),
                       Text(
-                        "profile.about",
+                        '${profile?.description}',
                       ),
                     ],
                   ),
                 ),
               ),
             ),
+            SizedBox(height: 50,),
+            Row(
+              children: [
+                SizedBox(width: 70),
+                ElevatedButton(
+                  onPressed: () {
+                    // Add functionality for editing the profile
+                  },
+                  child: Text('Edit Profile'),
+                ),
+                SizedBox(width: 50,),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context){
+                          return DeleteUserView(userId: profile?.id??0);
+                        })
+                    );
+                  },
+                  child: Text('Delete Profile'),
+                ),
+              ],
+
+            ),
+
           ],
         ),
       ),

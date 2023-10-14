@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:first_test/models/UserModel.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
@@ -71,5 +72,21 @@ class DbHelper
       var result = db.query(tbl);
       return result;
   }
+
+  Future<int> delete_user(String tbl , Object pkValue, {String pkName = 'id'})async
+  {
+    try
+    {
+      Database db = await database;
+      var result = await db.delete(tbl, where:'$pkName = ?', whereArgs:[pkValue]);
+      return result;
+    }
+
+    catch(e)
+    {
+      return 0;
+    }
+  }
+
 
 }

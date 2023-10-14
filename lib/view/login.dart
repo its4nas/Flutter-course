@@ -1,8 +1,8 @@
-import 'package:first_test/profile.dart';
+import 'package:first_test/view/profile.dart';
 import 'package:flutter/material.dart';
-import 'package:first_test/MainPage.dart';
+import 'package:first_test/view/MainPage.dart';
 import 'package:first_test/repositories/UserRepository.dart';
-import 'package:first_test/signup.dart';
+import 'package:first_test/view/signup.dart';
 import 'package:first_test/models/UserModel.dart';
 
 class LoginPage extends StatefulWidget {

@@ -1,8 +1,6 @@
-import 'package:first_test/view/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../repositories/UserRepository.dart';
-import 'login.dart';
 
 class DeleteUserView extends StatefulWidget {
   DeleteUserView({Key? key, required this.userId}) : super(key: key);
@@ -35,10 +33,7 @@ class _DeleteUserViewState extends State<DeleteUserView> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("data"),
-              loading?CircularProgressIndicator(): Text("Loading..."),
-              isError? Text("Error: $error",style: TextStyle(color: Colors.red),):SizedBox(),
-              isSuccess? Text("Added successfully"):SizedBox(),
+              Text("Are you sure, You want to Delete your Account for ever?"),
               Row(
                 children: [
                   TextButton(
@@ -92,7 +87,6 @@ class _DeleteUserViewState extends State<DeleteUserView> {
                   ),
                 ],
               ),
-
             ],
           )
       )

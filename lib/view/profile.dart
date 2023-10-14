@@ -1,10 +1,13 @@
 import 'package:first_test/models/UserModel.dart';
 import 'package:first_test/view/DeleteUserView.dart';
+import 'package:first_test/view/EditUserForm.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
   final UserModel? profile;
   ProfilePage({required this.profile});
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +82,13 @@ class ProfilePage extends StatelessWidget {
               children: [
                 SizedBox(width: 70),
                 ElevatedButton(
-                  onPressed: () {
-                    // Add functionality for editing the profile
+                  onPressed: (){
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context){
+                          return EditUser(profile: profile!);
+                        })
+                    );
+
                   },
                   child: Text('Edit Profile'),
                 ),

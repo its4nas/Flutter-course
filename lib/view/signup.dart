@@ -21,6 +21,7 @@ class _SignupPageState extends State<SignupPage> {
   var _phoneController = TextEditingController();
   var _firstNameController = TextEditingController();
   var _lastNameController = TextEditingController();
+  bool _isPasswordVisible = false;
 
 
 
@@ -197,6 +198,7 @@ class _SignupPageState extends State<SignupPage> {
                     }
                   },
                   controller: _passwordController,
+                  obscureText: !_isPasswordVisible,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -206,8 +208,19 @@ class _SignupPageState extends State<SignupPage> {
                       borderSide: BorderSide.none,
                     ),
                     prefixIcon: Icon(Icons.lock),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });
+                      },
+                    ),
                   ),
-                  obscureText: true,
                 ),
               ),
               SizedBox(height: 32.0),
@@ -275,7 +288,7 @@ class _SignupPageState extends State<SignupPage> {
                 ),
               ),
               isError? Text("Error: $error",style: TextStyle(color: Colors.red),):SizedBox(),
-              isSuccess? Text("Added successfully"):SizedBox(),
+              isSuccess? Text("Added successfully",style: TextStyle(color: Colors.greenAccent),):SizedBox(),
               SizedBox(height: 16.0),
               TextButton(
                 onPressed: () {

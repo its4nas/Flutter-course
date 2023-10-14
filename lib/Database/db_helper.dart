@@ -89,4 +89,26 @@ class DbHelper
   }
 
 
+  Future<int> update_user(String tbl,Map<String, dynamic> obj, {String pkName = "id"})async
+  {
+    try
+    {
+      Database db = await database;
+      var pkValue = obj[pkName];
+      print(pkValue);
+      print('hello');
+      if(pkValue != null)
+        {
+          var result = db.update(tbl, obj, where: '$pkName = ?', whereArgs: [pkValue], conflictAlgorithm: ConflictAlgorithm.ignore);
+          return result;
+        }
+      return 0;
+    }
+    catch(e)
+    {
+      return 0;
+    }
+  }
+
+
 }

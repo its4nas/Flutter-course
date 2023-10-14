@@ -31,6 +31,20 @@ class user_repository
     }
   }
 
+  Future<int> update(Map<String, dynamic> obj, int id)async
+  {
+    try
+    {
+      // await Future.delayed(Duration(seconds: 2));
+      var result = await DbHelper().update_user(DBTables.Users, obj);
+      return result;
+    }
+    catch(e)
+    {
+      return 0;
+    }
+  }
+
 
   Future<List<UserModel>> getAllUsers()async
   {

@@ -2,6 +2,8 @@ import 'package:first_test/view/login.dart';
 import 'package:first_test/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
 
+import '../models/UserModel.dart';
+
 class SignupPage extends StatefulWidget {
   @override
   _SignupPageState createState() => _SignupPageState();
@@ -13,6 +15,7 @@ class _SignupPageState extends State<SignupPage> {
   bool isSuccess = false;
   String error = "";
   String success = "";
+
 
   var formKey = GlobalKey<FormState>();
 

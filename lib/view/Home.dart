@@ -77,9 +77,16 @@ class _ShowAllState extends State<ShowAll> {
 
                 return ProfileCard(
                   profile: profile,
+                  isLiked: profile.isLiked,
                   onLike: () {
                     setState(() {
-                      // Perform like action for the profile
+                      setState(() {
+                        if (profile.isLiked) {
+                          profile.liked = profile.liked! -1;
+                        } else {
+                          profile.liked = profile.liked! +1;
+                        }
+                      });
                     });
                   },
                   onShare: () {
@@ -110,83 +117,85 @@ class ProfileCard extends StatelessWidget {
   final UserModel profile;
   final VoidCallback onLike;
   final VoidCallback onShare;
+  final bool isLiked;
 
   const ProfileCard({
     required this.profile,
     required this.onLike,
     required this.onShare,
+    required this.isLiked,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ProfileDetailPage(profile: profile),
-        ),
-      );
-    },
-    child: Card(
-      margin: EdgeInsets.all(8.0),
-      child: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/ic_launcher.png'),
-                  radius: 30.0,
-                ),
-                SizedBox(width: 10.0),
-                Text(
-                  "${profile.id}",
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProfileDetailPage(profile: profile),
+          ),
+        );
+      },
+      child: Card(
+        margin: EdgeInsets.all(8.0),
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/ic_launcher.png'),
+                    radius: 30.0,
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10.0),
-            Text(
-              "${profile.firstName} ${profile.lastName}",
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.grey,
+                  SizedBox(width: 10.0),
+                  Text(
+                    "${profile.id}",
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(height: 10.0),
-            Text(
-              "${profile.description}",
-              style: TextStyle(fontSize: 16.0),
-            ),
-            SizedBox(height: 10.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("${profile.liked}"),
-                IconButton(
-                  icon: Icon(Icons.favorite_border),
-                  color: Colors.red,
-                  onPressed: () => {
-                    profile.liked = 1,
-                  },
+              SizedBox(height: 10.0),
+              Text(
+                "${profile.firstName} ${profile.lastName}",
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.grey,
                 ),
-                IconButton(
-                  icon: Icon(Icons.share),
-                  color: Colors.deepPurple,
-                  onPressed: onShare,
-                ),
-              ],
-            ),
-          ],
+              ),
+              SizedBox(height: 10.0),
+              Text(
+                "${profile.description}",
+                style: TextStyle(fontSize: 16.0),
+              ),
+              SizedBox(height: 10.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("${profile.liked}"),
+                  IconButton(
+                    icon: Icon(
+                      isLiked ? Icons.favorite : Icons.favorite_border,
+                    ),
+                    color: Colors.red,
+                    onPressed: onLike,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.share),
+                    color: Colors.deepPurple,
+                    onPressed: onShare,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
-    ),
     );
   }
 }

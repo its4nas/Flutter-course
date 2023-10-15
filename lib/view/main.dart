@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
       ),
       debugShowCheckedModeBanner: false,
-      home: MainPage(profile: null,)
+      home:
+      MainPage(profile: null,)
     );
   }
 }

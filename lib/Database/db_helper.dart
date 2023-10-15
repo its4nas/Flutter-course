@@ -9,7 +9,7 @@ class DBTables
   static const String Users = "Users";
 }
 
-String _usertable = 'CREATE TABLE ${DBTables.Users} (Id INTEGER PRIMARY KEY AUTOINCREMENT, FirstName TEXT, LastName TEXT, Job TEXT DEFAULT "watcher", Description TEXT DEFAULT "this is just a discription for a watcher", Phone Text, Email TEXT, Password Text, Image TEXT DEFAULT "default", Liked INTEGER)';
+String _usertable = 'CREATE TABLE ${DBTables.Users} (Id INTEGER PRIMARY KEY AUTOINCREMENT, FirstName TEXT, LastName TEXT, Job TEXT DEFAULT "watcher", Description TEXT DEFAULT "this is just a discription for a watcher", Phone Text, Email TEXT, Password Text, Image TEXT DEFAULT "default", Liked INTEGER DEFAULT 0)';
 
 class DbHelper
 {
@@ -37,7 +37,7 @@ class DbHelper
     Directory dbFolderDir = await Directory(dbPath).create(recursive: true);
 
     // Android/data/project_name/files/Database/school.db
-    final file = File(p.join(dbFolderDir.path, 'D.db'));
+    final file = File(p.join(dbFolderDir.path, 'm.db'));
     var schoolDB = await openDatabase(
       file.path,
       version: dbVersion,
@@ -54,11 +54,11 @@ class DbHelper
   Future<int> add_user(String tbl,Map<String, dynamic> obj)async
   {
     try
-        {
-          var db = await database;
-          var result = db.insert(tbl, obj);
-          return result;
-        }
+    {
+      var db = await database;
+      var result = db.insert(tbl, obj);
+      return result;
+    }
 
     catch(e)
     {
@@ -68,9 +68,9 @@ class DbHelper
 
   Future<List<Map<String, dynamic>>> get_users(String tbl)async
   {
-      var db = await database;
-      var result = db.query(tbl);
-      return result;
+    var db = await database;
+    var result = db.query(tbl);
+    return result;
   }
 
   Future<int> delete_user(String tbl , Object pkValue, {String pkName = 'id'})async
@@ -98,10 +98,10 @@ class DbHelper
       print(pkValue);
       print('hello');
       if(pkValue != null)
-        {
-          var result = db.update(tbl, obj, where: '$pkName = ?', whereArgs: [pkValue], conflictAlgorithm: ConflictAlgorithm.ignore);
-          return result;
-        }
+      {
+        var result = db.update(tbl, obj, where: '$pkName = ?', whereArgs: [pkValue], conflictAlgorithm: ConflictAlgorithm.ignore);
+        return result;
+      }
       return 0;
     }
     catch(e)

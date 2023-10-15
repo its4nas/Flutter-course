@@ -29,6 +29,7 @@ class _EditUserState extends State<EditUser> {
   late TextEditingController _jobController;
   late TextEditingController _descriptionController;
   late TextEditingController _idController;
+  late TextEditingController _likedController;
   bool _isPasswordVisible = false;
 
   @override
@@ -42,6 +43,7 @@ class _EditUserState extends State<EditUser> {
     _jobController = TextEditingController(text: widget.profile.job);
     _descriptionController = TextEditingController(text: widget.profile.description);
     _idController = TextEditingController(text: widget.profile.id.toString());
+    _likedController = TextEditingController(text: widget.profile.liked.toString());
   }
 
   @override
@@ -54,6 +56,7 @@ class _EditUserState extends State<EditUser> {
     _jobController.dispose();
     _descriptionController.dispose();
     _idController.dispose();
+    _likedController.dispose();
     super.dispose();
   }
 
@@ -157,6 +160,29 @@ class _EditUserState extends State<EditUser> {
           ),
         ),
       ),
+      // SizedBox(height: 16.0),
+      // Padding(
+      //   padding: EdgeInsets.symmetric(horizontal: 20.0),
+      //   child: TextFormField(
+      //     autovalidateMode: AutovalidateMode.onUserInteraction,
+      //     validator: (value) {
+      //       if (value == null) return "Email cannot be empty";
+      //
+      //       return null;
+      //     },
+      //     controller: _likedController,
+      //     decoration: InputDecoration(
+      //       filled: true,
+      //       fillColor: Colors.white,
+      //       hintText: 'Likes',
+      //       border: OutlineInputBorder(
+      //         borderRadius: BorderRadius.circular(8.0),
+      //         borderSide: BorderSide.none,
+      //       ),
+      //       prefixIcon: Icon(Icons.thumb_up),
+      //     ),
+      //   ),
+      // ),
       SizedBox(height: 16.0),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -297,6 +323,7 @@ class _EditUserState extends State<EditUser> {
                 "job":_jobController.text,
                 "description":_descriptionController.text,
                 "id":_idController.text,
+                "liked":_likedController.text,
               };
 
               var addRes = await user_repository().update(data, widget.profile.id!);

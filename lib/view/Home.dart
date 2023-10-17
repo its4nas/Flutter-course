@@ -152,7 +152,7 @@ class ProfileCard extends StatelessWidget {
                   ),
                   SizedBox(width: 10.0),
                   Text(
-                    "${profile.id}",
+                    "${profile.id} ${profile.job}",
                     style: TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,

@@ -8,7 +8,6 @@ class ProfilePage extends StatelessWidget {
   ProfilePage({required this.profile});
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,9 +103,7 @@ class ProfilePage extends StatelessWidget {
                   child: Text('Delete Profile'),
                 ),
               ],
-
             ),
-
           ],
         ),
       ),

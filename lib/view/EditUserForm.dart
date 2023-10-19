@@ -1,4 +1,6 @@
 import 'package:first_test/models/UserModel.dart';
+import 'package:first_test/view/login.dart';
+import 'package:first_test/view/signup.dart';
 import 'package:flutter/material.dart';
 
 import '../repositories/UserRepository.dart';
@@ -318,11 +320,14 @@ class _EditUserState extends State<EditUser> {
                         isSuccess = true;
                         success = "Profile updated successfully!";
                       });
-                      Navigator.of(context).pop();
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      );
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           backgroundColor: Colors.deepPurple[300],
-                          content: Text("User has been Updated seccesfully"),
+                          content: Text("User has been Updated seccesfully, Please login"),
                         ),
                       );
                     } else {

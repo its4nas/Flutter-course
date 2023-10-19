@@ -81,10 +81,12 @@ class _ShowAllState extends State<ShowAll> {
                   onLike: () {
                     setState(() {
                       setState(() {
-                        if (profile.isLiked) {
-                          profile.liked = profile.liked! -1;
-                        } else {
-                          profile.liked = profile.liked! +1;
+                        if (profile.isLiked)
+                        {
+                            profile.liked = profile.liked! -1;
+                        } else
+                        {
+                            profile.liked = profile.liked! +1;
                         }
                       });
                     });

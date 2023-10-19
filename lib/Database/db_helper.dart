@@ -95,8 +95,6 @@ class DbHelper
     {
       Database db = await database;
       var pkValue = obj[pkName];
-      print(pkValue);
-      print('hello');
       if(pkValue != null)
       {
         var result = db.update(tbl, obj, where: '$pkName = ?', whereArgs: [pkValue], conflictAlgorithm: ConflictAlgorithm.ignore);

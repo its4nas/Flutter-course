@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:first_test/models/UserModel.dart';
 import 'package:first_test/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
@@ -149,12 +151,24 @@ class ProfileCard extends StatelessWidget {
               Row(
                 children: <Widget>[
                   CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/ic_launcher.png'),
-                    radius: 30.0,
+                    backgroundColor: Colors.black,
+                    child: profile?.image != null
+                        ? Image.file(
+                      File(profile!.image!),
+                      height: 80,
+                      width: 80,
+                      fit: BoxFit.cover,
+                    )
+                        : Image.asset(
+                      'assets/images/default.png',
+                      height: 80,
+                      width: 80,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   SizedBox(width: 10.0),
                   Text(
-                    "${profile.id} ${profile.job}",
+                    "${profile.id} ${profile.image}",
                     style: TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,

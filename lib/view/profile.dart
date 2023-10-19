@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:first_test/models/UserModel.dart';
 import 'package:first_test/view/DeleteUserView.dart';
 import 'package:first_test/view/EditUserForm.dart';
@@ -17,8 +19,20 @@ class ProfilePage extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: 50.0),
             CircleAvatar(
-              radius: 80.0,
-              backgroundImage: AssetImage('assets/images/ic_launcher.png'),
+              backgroundColor: Colors.black,
+              child: profile?.image != null
+                  ? Image.file(
+                File(profile!.image!),
+                height: 80,
+                width: 80,
+                fit: BoxFit.cover,
+              )
+                  : Image.asset(
+                'assets/images/default.png',
+                height: 80,
+                width: 80,
+                fit: BoxFit.cover,
+              ),
             ),
             SizedBox(height: 20.0),
             Text(
@@ -69,7 +83,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       SizedBox(height: 10.0),
                       Text(
-                        '${profile?.description}',
+                        '${profile?.image}',
                       ),
                     ],
                   ),

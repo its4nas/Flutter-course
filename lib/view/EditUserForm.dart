@@ -1,8 +1,9 @@
+import 'dart:io';
+
 import 'package:first_test/models/UserModel.dart';
 import 'package:first_test/view/login.dart';
-import 'package:first_test/view/signup.dart';
 import 'package:flutter/material.dart';
-
+import 'package:image_picker/image_picker.dart';
 import '../repositories/UserRepository.dart';
 
 class EditUser extends StatefulWidget {
@@ -21,6 +22,21 @@ class _EditUserState extends State<EditUser> {
   String error = "";
   String success = "";
 
+  String? _imagePath;
+  File? _image;
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage.path);
+        _imagePath = pickedImage.path; // Store image path
+      });
+    }
+  }
+
   var formKey = GlobalKey<FormState>();
 
   late TextEditingController _emailController;
@@ -32,6 +48,7 @@ class _EditUserState extends State<EditUser> {
   late TextEditingController _descriptionController;
   late TextEditingController _idController;
   late TextEditingController _likedController;
+  late TextEditingController _imageController;
   bool _isPasswordVisible = false;
 
   @override
@@ -46,6 +63,9 @@ class _EditUserState extends State<EditUser> {
     _descriptionController = TextEditingController(text: widget.profile.description);
     _idController = TextEditingController(text: widget.profile.id.toString());
     _likedController = TextEditingController(text: widget.profile.liked.toString());
+    _imageController = TextEditingController(text: widget.profile.image);
+    print(_image);
+    print(_imagePath);
   }
 
   @override
@@ -59,7 +79,10 @@ class _EditUserState extends State<EditUser> {
     _descriptionController.dispose();
     _idController.dispose();
     _likedController.dispose();
+    _imageController.dispose();
     super.dispose();
+    print(_image);
+    print(_imagePath);
   }
 
   @override
@@ -73,15 +96,15 @@ class _EditUserState extends State<EditUser> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: 16.0),
-              Text(
-                'Welcome to EzApp',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+              CircleAvatar(
+                radius: 80.0,
+                backgroundImage: _image != null
+                    ? FileImage(_image!)
+                    : (_image == null
+                    ? AssetImage('${widget.profile.image}')
+                    : null) as ImageProvider,
               ),
+              TextButton(onPressed: _pickImage, child: Text("change Icon")),
               SizedBox(height: 32.0),
               Row(
                 children: [
@@ -97,7 +120,7 @@ class _EditUserState extends State<EditUser> {
                             if (value.length < 2) return "First name must be more than 1 letter";
                           }
                         },
-                        controller: _firstNameController,
+                        controller: _imageController,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -311,6 +334,10 @@ class _EditUserState extends State<EditUser> {
                       "description":_descriptionController.text,
                       "id":_idController.text,
                       "liked":_likedController.text,
+                      if(_imagePath != null)
+                        "image": _imagePath,
+                      if(_image != null)
+                        "image": _image?.path,
                     };
 
                     var _result = await user_repository().update(data,widget.profile.id!);

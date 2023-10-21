@@ -150,7 +150,10 @@ class ProfileCard extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
+                  ClipOval(
+                    child:
                   CircleAvatar(
+                    radius: 30,
                     backgroundColor: Colors.black,
                     child: profile?.image != null
                         ? Image.file(
@@ -161,10 +164,9 @@ class ProfileCard extends StatelessWidget {
                     )
                         : Image.asset(
                       'assets/images/default.png',
-                      height: 80,
-                      width: 80,
                       fit: BoxFit.cover,
                     ),
+                  ),
                   ),
                   SizedBox(width: 10.0),
                   Text(

@@ -23,20 +23,22 @@ class ProfileDetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: 50.0),
-            CircleAvatar(
-              backgroundColor: Colors.black,
-              child: profile?.image != null
-                  ? Image.file(
-                File(profile!.image!),
-                height: 80,
-                width: 80,
-                fit: BoxFit.cover,
-              )
-                  : Image.asset(
-                'assets/images/default.png',
-                height: 80,
-                width: 80,
-                fit: BoxFit.cover,
+            ClipOval(
+              child:
+              CircleAvatar(
+                radius: 70,
+                backgroundColor: Colors.black,
+                child: profile?.image != null
+                    ? Image.file(
+                  File(profile!.image!),
+                  height: 80,
+                  width: 80,
+                  fit: BoxFit.cover,
+                )
+                    : Image.asset(
+                  'assets/images/default.png',
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(height: 20.0),

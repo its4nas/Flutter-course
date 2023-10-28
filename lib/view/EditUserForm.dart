@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:first_test/models/UserModel.dart';
 import 'package:first_test/view/login.dart';
 import 'package:flutter/material.dart';
@@ -64,8 +63,6 @@ class _EditUserState extends State<EditUser> {
     _idController = TextEditingController(text: widget.profile.id.toString());
     _likedController = TextEditingController(text: widget.profile.liked.toString());
     _imageController = TextEditingController(text: widget.profile.image);
-    print(_image);
-    print(_imagePath);
   }
 
   @override
@@ -81,8 +78,6 @@ class _EditUserState extends State<EditUser> {
     _likedController.dispose();
     _imageController.dispose();
     super.dispose();
-    print(_image);
-    print(_imagePath);
   }
 
   @override
@@ -105,7 +100,6 @@ class _EditUserState extends State<EditUser> {
               SizedBox(height: 30,),
               if(_image !=null)
               CircleAvatar(
-
                 radius: 80.0,
                 backgroundImage: _image != null
                     ? FileImage(_image!)

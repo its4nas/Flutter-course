@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../models/UserModel.dart';
 import '../view/Home.dart';
@@ -47,9 +49,23 @@ class _MainPageState extends State<MainPage> {
               ),
               child: Row(
                 children: [
-                  CircleAvatar(
-                    radius: 30.0,
-                    backgroundImage: AssetImage('assets/images/ic_launcher.png'),
+                  ClipOval(
+                    child:
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.white,
+                      child: profile?.image != null
+                          ? Image.file(
+                        File(profile!.image!),
+                        height: 150,
+                        width: 150,
+                        fit: BoxFit.cover,
+                      )
+                          : Image.asset(
+                        'assets/images/default.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                   SizedBox.fromSize(size: Size.fromWidth(10.0)),
                   Text(
@@ -66,15 +82,23 @@ class _MainPageState extends State<MainPage> {
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => MainPage()),
-                // );
+                setState(() {
+                  _currentIndex = 0;
+                });
               },
             ),
             ListTile(
-              leading: Icon(Icons.login),
-              title: Text('Login'),
+              leading: Icon(Icons.person),
+              title: Text('Profile'),
+              onTap: () {
+                setState(() {
+                  _currentIndex = 1;
+                });
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
               onTap: () {
                 Navigator.pushReplacement(
                   context,
@@ -86,7 +110,9 @@ class _MainPageState extends State<MainPage> {
               leading: Icon(Icons.settings),
               title: Text('Settings'),
               onTap: () {
-                // Handle drawer item tap
+                setState(() {
+                  _currentIndex = 2;
+                });
               },
             ),
           ],

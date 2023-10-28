@@ -17,22 +17,31 @@ class ProfileDetailPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("${profile.firstName}"),
         centerTitle: true,
+        backgroundColor: Colors.deepPurple,
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: 50.0),
+            Text(
+              "${profile.job}",
+              style: TextStyle(
+                fontSize: 28.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 50.0),
             ClipOval(
               child:
               CircleAvatar(
                 radius: 70,
-                backgroundColor: Colors.black,
+                backgroundColor: Colors.white,
                 child: profile?.image != null
                     ? Image.file(
                   File(profile!.image!),
-                  height: 80,
-                  width: 80,
+                  height: 150,
+                  width: 150,
                   fit: BoxFit.cover,
                 )
                     : Image.asset(
@@ -45,7 +54,7 @@ class ProfileDetailPage extends StatelessWidget {
             Text(
               "${profile.firstName} ${profile.lastName}",
               style: TextStyle(
-                fontSize: 24.0,
+                fontSize: 28.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -56,9 +65,9 @@ class ProfileDetailPage extends StatelessWidget {
                 Icon(Icons.favorite, color: Colors.red),
                 SizedBox(width: 5.0),
                 Text(
-                  '${profile.description}',
+                  '${profile.liked} likes',
                   style: TextStyle(
-                    fontSize: 16.0,
+                    fontSize: 20.0,
                     color: Colors.grey,
                   ),
                 ),
@@ -66,9 +75,9 @@ class ProfileDetailPage extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             Text(
-              "${profile.email}",
+              "Phone: ${profile.phone}",
               style: TextStyle(
-                fontSize: 16.0,
+                fontSize: 20.0,
                 color: Colors.grey,
               ),
             ),
@@ -82,15 +91,16 @@ class ProfileDetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "${profile.password}",
+                        "About the Worker",
                         style: TextStyle(
-                          fontSize: 20.0,
+                          fontSize: 25.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       SizedBox(height: 10.0),
                       Text(
-                        "profile.about",
+                        "${profile.description}",
+                        style: TextStyle(fontSize: 17),
                       ),
                     ],
                   ),

@@ -87,16 +87,25 @@ class _EditUserState extends State<EditUser> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('Edit Profile'),
-      content: SingleChildScrollView(
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Edit  ${widget.profile.firstName}"),
+        backgroundColor: Colors.deepPurple,
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
+              SizedBox(height: 30,),
+              if(_image !=null)
               CircleAvatar(
+
                 radius: 80.0,
                 backgroundImage: _image != null
                     ? FileImage(_image!)
@@ -104,7 +113,26 @@ class _EditUserState extends State<EditUser> {
                     ? AssetImage('${widget.profile.image}')
                     : null) as ImageProvider,
               ),
-              TextButton(onPressed: _pickImage, child: Text("change Icon")),
+              SizedBox(height: 30,),
+              Center(
+                child: TextButton(
+                  onPressed: _pickImage,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.image,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        'Change Icon',
+                        style: TextStyle(color: Colors.deepPurpleAccent),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               SizedBox(height: 32.0),
               Row(
                 children: [
@@ -120,10 +148,12 @@ class _EditUserState extends State<EditUser> {
                             if (value.length < 2) return "First name must be more than 1 letter";
                           }
                         },
-                        controller: _imageController,
+                        controller: _firstNameController,
+                        style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
+                          hintStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),
                           hintText: 'First Name',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
@@ -147,9 +177,11 @@ class _EditUserState extends State<EditUser> {
                           }
                         },
                         controller: _lastNameController,
+                        style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
+                          hintStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),
                           hintText: 'Last Name',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
@@ -175,9 +207,11 @@ class _EditUserState extends State<EditUser> {
                     }
                   },
                   controller: _emailController,
+                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
+                    hintStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),
                     hintText: 'Email',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -200,9 +234,11 @@ class _EditUserState extends State<EditUser> {
                     }
                   },
                   controller: _phoneController,
+                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
+                    hintStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),
                     hintText: 'Phone Number',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -226,9 +262,11 @@ class _EditUserState extends State<EditUser> {
                     return null;
                   },
                   controller: _jobController,
+                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
+                    hintStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),
                     hintText: 'Job Name',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -252,9 +290,11 @@ class _EditUserState extends State<EditUser> {
                     return null;
                   },
                   controller: _descriptionController,
+                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
+                    hintStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),
                     hintText: 'Job Description',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -277,10 +317,12 @@ class _EditUserState extends State<EditUser> {
                     }
                   },
                   controller: _passwordController,
+                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                   obscureText: !_isPasswordVisible,
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
+                    hintStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),
                     hintText: 'Password',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -302,6 +344,8 @@ class _EditUserState extends State<EditUser> {
                 ),
               ),
               SizedBox(height: 16.0),
+              Text("if you Update any information you will need to log in again.",style: TextStyle(color: Colors.red),),
+              SizedBox(height: 5.0),
               isError
                   ? Text(
                 error,
@@ -349,7 +393,7 @@ class _EditUserState extends State<EditUser> {
                       });
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
+                        MaterialPageRoute(builder: (context) => LoginPage(toggleTheme: (){},)),
                       );
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -367,6 +411,13 @@ class _EditUserState extends State<EditUser> {
                   }
                 },
                 child: Text('Confirm'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.deepPurpleAccent,
+                  padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
               ),
               if (loading) CircularProgressIndicator(),
               if (isSuccess)
@@ -385,12 +436,13 @@ class _EditUserState extends State<EditUser> {
                     style: TextStyle(color: Colors.red),
                   ),
                 ),
+
               SizedBox(height: 16.0),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Cancel'),
+                child: Text('Cancel',style: TextStyle(color: Colors.deepPurpleAccent),),
               ),
             ],
           ),

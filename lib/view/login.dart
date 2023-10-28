@@ -7,13 +7,19 @@ import 'package:first_test/models/UserModel.dart';
 
 class LoginPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  final VoidCallback toggleTheme;
+  const LoginPage({Key? key,required this.toggleTheme}) : super(key: key);
+
+  _LoginPageState createState() => _LoginPageState(toggleTheme: toggleTheme);
 }
 
 class _LoginPageState extends State<LoginPage> {
   var _emailController = TextEditingController();
   var _passwordController = TextEditingController();
   List<UserModel> profileList = [];
+  final VoidCallback toggleTheme;
+
+  _LoginPageState({required this.toggleTheme});
 
   void fetchProfiles() async {
     List<UserModel> profiles = await user_repository().getAllUsers();
@@ -37,6 +43,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -51,7 +59,10 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               SizedBox(height: 150.0),
-              Image.asset("assets/images/ic_launcher.png", width: 100,),
+              Image.asset(
+                "assets/images/ic_launcher.png",
+                width: 100,
+              ),
               SizedBox(height: 16.0),
               Text(
                 'Welcome to EzApp',
@@ -66,15 +77,17 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.symmetric(horizontal: 32.0),
                 child: TextFormField(
                   controller: _emailController,
+                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
                     hintText: 'Email',
+                    hintStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                       borderSide: BorderSide.none,
                     ),
-                    prefixIcon: Icon(Icons.email),
+                    prefixIcon: Icon(Icons.email, color: isDarkMode ? Colors.white : Colors.black),
                   ),
                 ),
               ),
@@ -83,15 +96,17 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.symmetric(horizontal: 32.0),
                 child: TextFormField(
                   controller: _passwordController,
+                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
                     hintText: 'Password',
+                    hintStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                       borderSide: BorderSide.none,
                     ),
-                    prefixIcon: Icon(Icons.lock),
+                    prefixIcon: Icon(Icons.lock, color: isDarkMode ? Colors.white : Colors.black),
                   ),
                   obscureText: true,
                 ),
@@ -113,7 +128,10 @@ class _LoginPageState extends State<LoginPage> {
                   if (matchedUser != null) {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) {
-                        return MainPage(profile: matchedUser,);
+                        return MainPage(
+                          profile: matchedUser,
+                          toggleTheme: toggleTheme,
+                        );
                       }),
                     );
                   } else {

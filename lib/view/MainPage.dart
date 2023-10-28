@@ -7,25 +7,28 @@ import 'settings.dart';
 
 class MainPage extends StatefulWidget {
   final UserModel? profile;
+  final VoidCallback toggleTheme;
 
-  MainPage({required this.profile});
+  const MainPage({Key? key, required this.toggleTheme, required this.profile}) : super(key: key);
+
 
   @override
-  _MainPageState createState() => _MainPageState(profile: profile);
+  _MainPageState createState() => _MainPageState(profile: profile,toggleTheme: toggleTheme);
 }
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
+  final VoidCallback toggleTheme;
   UserModel? profile;
 
-  _MainPageState({required this.profile});
+  _MainPageState({required this.profile, required this.toggleTheme});
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> _pages = [
       ShowAll(),
       ProfilePage(profile: profile),
-      SettingsPage(),
+      SettingsPage(toggleTheme: toggleTheme),
     ];
 
     return Scaffold(
@@ -75,7 +78,7 @@ class _MainPageState extends State<MainPage> {
               onTap: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  MaterialPageRoute(builder: (context) => LoginPage(toggleTheme: toggleTheme,)),
                 );
               },
             ),
@@ -92,6 +95,8 @@ class _MainPageState extends State<MainPage> {
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
+        // backgroundColor: Colors.deepPurpleAccent,
+        fixedColor: Colors.deepPurple,
         onTap: (index) {
           setState(() {
             _currentIndex = index;

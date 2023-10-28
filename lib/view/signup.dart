@@ -27,6 +27,8 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       body: Center(
         child: Container(
@@ -70,9 +72,11 @@ class _SignupPageState extends State<SignupPage> {
                               }
                             },
                             controller: _firstNameController,
+                            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                             decoration: InputDecoration(
                               filled: true,
-                              fillColor: Colors.white,
+                              fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
+                              hintStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),
                               hintText: 'First Name',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8.0),
@@ -96,9 +100,11 @@ class _SignupPageState extends State<SignupPage> {
                               }
                             },
                             controller: _lastNameController,
+                            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                             decoration: InputDecoration(
                               filled: true,
-                              fillColor: Colors.white,
+                              fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
+                              hintStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),
                               hintText: 'Last Name',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8.0),
@@ -124,9 +130,11 @@ class _SignupPageState extends State<SignupPage> {
                         }
                       },
                       controller: _emailController,
+                      style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
+                        hintStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),
                         hintText: 'Email',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
@@ -149,9 +157,11 @@ class _SignupPageState extends State<SignupPage> {
                         }
                       },
                       controller: _phoneController,
+                      style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
+                        hintStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),
                         hintText: 'Phone Number',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
@@ -174,10 +184,12 @@ class _SignupPageState extends State<SignupPage> {
                         }
                       },
                       controller: _passwordController,
+                      style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                       obscureText: !_isPasswordVisible,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
+                        hintStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),
                         hintText: 'Password',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
@@ -237,7 +249,7 @@ class _SignupPageState extends State<SignupPage> {
                           });
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => LoginPage()),
+                            MaterialPageRoute(builder: (context) => LoginPage(toggleTheme: (){},)),
                           );
                         } else {
                           setState(() {
@@ -248,7 +260,13 @@ class _SignupPageState extends State<SignupPage> {
                         }
                       }
                     },
-                    child: Text('Sign Up'),
+                    child: Text('Sign Up',
+                    style: TextStyle(
+                      color: Colors.deepPurple,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    ),
                   ),
                   SizedBox(height: 16.0),
                   TextButton(
@@ -259,7 +277,7 @@ class _SignupPageState extends State<SignupPage> {
                     onPressed: () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
+                        MaterialPageRoute(builder: (context) => LoginPage(toggleTheme:() {},)),
                       );
                     },
                   ),

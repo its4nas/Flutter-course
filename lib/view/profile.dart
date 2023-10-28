@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:first_test/models/UserModel.dart';
 import 'package:first_test/view/DeleteUserView.dart';
 import 'package:first_test/view/EditUserForm.dart';
@@ -18,14 +17,23 @@ class ProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: 50.0),
+            Text(
+              '${profile?.job}',
+              style: TextStyle(
+                fontSize: 28.0,
+              ),
+            ),
+            SizedBox(height: 50.0),
             ClipOval(
               child:
               CircleAvatar(
                 radius: 70,
-                backgroundColor: Colors.black,
+                backgroundColor: Colors.white,
                 child: profile?.image != null
                     ? Image.file(
                   File(profile!.image!),
+                  height: 150,
+                  width: 150,
                   fit: BoxFit.cover,
                 )
                     : Image.asset(
@@ -36,9 +44,9 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             Text(
-              '${profile?.firstName}',
+              '${profile?.firstName} ${profile?.lastName}',
               style: TextStyle(
-                fontSize: 24.0,
+                fontSize: 28.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -59,9 +67,9 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             Text(
-              '${profile?.job}',
+              "Phone: ${profile?.phone}",
               style: TextStyle(
-                fontSize: 16.0,
+                fontSize: 20.0,
                 color: Colors.grey,
               ),
             ),
@@ -77,13 +85,14 @@ class ProfilePage extends StatelessWidget {
                       Text(
                         'About Me',
                         style: TextStyle(
-                          fontSize: 20.0,
+                          fontSize: 25.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       SizedBox(height: 10.0),
                       Text(
-                        '${profile?.image}',
+                        '${profile?.description}',
+                        style: TextStyle(fontSize: 20),
                       ),
                     ],
                   ),
@@ -93,7 +102,7 @@ class ProfilePage extends StatelessWidget {
             SizedBox(height: 50,),
             Row(
               children: [
-                SizedBox(width: 70),
+                SizedBox(width: 40),
                 ElevatedButton(
                   onPressed: (){
                     Navigator.of(context).push(
@@ -104,6 +113,13 @@ class ProfilePage extends StatelessWidget {
 
                   },
                   child: Text('Edit Profile'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.deepPurpleAccent,
+                    padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
                 ),
                 SizedBox(width: 50,),
                 ElevatedButton(
@@ -115,6 +131,13 @@ class ProfilePage extends StatelessWidget {
                     );
                   },
                   child: Text('Delete Profile'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.deepPurpleAccent,
+                    padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
                 ),
               ],
             ),

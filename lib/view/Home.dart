@@ -14,6 +14,7 @@ class ShowAll extends StatefulWidget {
 
 class _ShowAllState extends State<ShowAll> {
   List<UserModel> profileList = [];
+  List<UserModel> filteredList = [];
 
   @override
   void initState() {
@@ -25,69 +26,60 @@ class _ShowAllState extends State<ShowAll> {
     List<UserModel> profiles = await user_repository().getAllUsers();
     setState(() {
       profileList = profiles;
+      filteredList = profiles;
     });
   }
-  String selectedFilter = 'All'; // Default filter
+
+  void searchByName(String query) {
+    setState(() {
+      filteredList = profileList.where((profile) {
+        final fullName = '${profile.firstName} ${profile.lastName} ${profile.job}'.toLowerCase();
+        return fullName.contains(query.toLowerCase());
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                FilterButton(
-                  text: 'All',
-                  isSelected: selectedFilter == 'All',
-                  onTap: () {
-                    setState(() {
-                      selectedFilter = 'All';
-                    });
-                  },
+                Expanded(
+                  child: TextField(
+                    onChanged: (value) {
+                      searchByName(value);
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Search by name or job',
+                      prefixIcon: Icon(Icons.search),
+                    ),
+                  ),
                 ),
-                FilterButton(
-                  text: 'Software Engineer',
-                  isSelected: selectedFilter == 'Software Engineer',
-                  onTap: () {
-                    setState(() {
-                      selectedFilter = 'Software Engineer';
-                    });
-                  },
-                ),
-                FilterButton(
-                  text: 'UIUX Designer',
-                  isSelected: selectedFilter == 'UIUX Designer',
-                  onTap: () {
-                    setState(() {
-                      selectedFilter = 'UIUX Designer';
-                    });
-                  },
-                ),
-
               ],
             ),
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: profileList.length,
+              itemCount: filteredList.length,
               itemBuilder: (context, index) {
-                UserModel profile = profileList[index];
-
+                UserModel profile = filteredList[index];
                 return ProfileCard(
                   profile: profile,
-                  isLiked: profile.isLiked,
                   onLike: () {
                     setState(() {
                       setState(() {
                         if (profile.isLiked)
                         {
-                            profile.liked = profile.liked! -1;
+                          profile.liked = profile.liked! -1;
                         } else
                         {
-                            profile.liked = profile.liked! +1;
+                          profile.liked = profile.liked! +1;
                         }
                       });
                     });
@@ -96,7 +88,7 @@ class _ShowAllState extends State<ShowAll> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         backgroundColor: Colors.deepPurple[300],
-                        content: Text("Link of ${profileList[index].firstName} has copied"),
+                        content: Text("Link of ${profileList[index].firstName} has copied", style: TextStyle(color: isDarkMode ? Colors.white70 : Colors.grey),),
                         action: SnackBarAction(
                           label: 'Close',
                           onPressed: () {
@@ -106,6 +98,8 @@ class _ShowAllState extends State<ShowAll> {
                       ),
                     );
                   },
+                  isLiked: profile.isLiked,
+                  // ... Other properties
                 );
               },
             ),
@@ -169,7 +163,7 @@ class ProfileCard extends StatelessWidget {
                   ),
                   SizedBox(width: 10.0),
                   Text(
-                    "${profile.id} ${profile.image}",
+                    "${profile.firstName} ${profile.lastName}",
                     style: TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
@@ -179,7 +173,7 @@ class ProfileCard extends StatelessWidget {
               ),
               SizedBox(height: 10.0),
               Text(
-                "${profile.firstName} ${profile.lastName}",
+                "${profile.job}",
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.grey,
@@ -204,7 +198,7 @@ class ProfileCard extends StatelessWidget {
                   ),
                   IconButton(
                     icon: Icon(Icons.share),
-                    color: Colors.deepPurple,
+                    color: Colors.deepPurpleAccent,
                     onPressed: onShare,
                   ),
                 ],

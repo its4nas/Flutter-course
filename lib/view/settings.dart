@@ -1,71 +1,35 @@
 import 'package:flutter/material.dart';
 
-class SettingsPage extends StatefulWidget {
-  @override
-  _SettingsPageState createState() => _SettingsPageState();
-}
+class SettingsPage extends StatelessWidget {
+  final VoidCallback toggleTheme;
 
-class _SettingsPageState extends State<SettingsPage> {
-  bool notificationsEnabled = true;
-  bool darkModeEnabled = false;
-  int selectedFontSizeIndex = 1;
-  List<String> fontSizes = ['Small', 'Medium', 'Large'];
+  const SettingsPage({Key? key, required this.toggleTheme}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        padding: EdgeInsets.all(16.0),
-        children: [
-          Card(
-            elevation: 2.0,
-            child: ListTile(
-              title: Text('Notifications'),
-              trailing: Switch(
-                value: notificationsEnabled,
-                onChanged: (value) {
-                  setState(() {
-                    notificationsEnabled = value;
-                  });
-                },
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Settings Page',
+              style: TextStyle(fontSize: 24),
+            ),
+            SizedBox(height: 20,),
+            ElevatedButton(
+              onPressed: toggleTheme,
+              child: Text('Change Theme'),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.deepPurpleAccent,
+                padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
               ),
             ),
-          ),
-          Card(
-            elevation: 2.0,
-            child: ListTile(
-              title: Text('Dark Mode'),
-              trailing: Switch(
-                value: darkModeEnabled,
-                onChanged: (value) {
-                  setState(() {
-                    darkModeEnabled = value;
-                  });
-                },
-              ),
-            ),
-          ),
-          Card(
-            elevation: 2.0,
-            child: ListTile(
-              title: Text('Font Size'),
-              trailing: DropdownButton<int>(
-                value: selectedFontSizeIndex,
-                items: fontSizes.map((fontSize) {
-                  return DropdownMenuItem<int>(
-                    value: fontSizes.indexOf(fontSize),
-                    child: Text(fontSize),
-                  );
-                }).toList(),
-                onChanged: (index) {
-                  setState(() {
-                    selectedFontSizeIndex = index!;
-                  });
-                },
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

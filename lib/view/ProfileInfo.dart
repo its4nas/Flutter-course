@@ -1,9 +1,6 @@
 import 'dart:io';
-
 import 'package:first_test/models/UserModel.dart';
-import 'package:first_test/view/show.dart';
 import 'package:flutter/material.dart';
-import 'Home.dart';
 
 
 class ProfileDetailPage extends StatelessWidget {

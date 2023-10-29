@@ -1,8 +1,5 @@
 import 'package:first_test/view/login.dart';
-import 'package:first_test/view/show.dart';
 import 'package:flutter/material.dart';
-import 'Home.dart';
-import '../view/MainPage.dart';
 
 void main() {
   runApp(const MyApp());

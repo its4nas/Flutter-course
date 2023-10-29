@@ -1,4 +1,3 @@
-import 'package:first_test/view/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:first_test/view/MainPage.dart';
 import 'package:first_test/repositories/UserRepository.dart';

@@ -14,12 +14,6 @@ class _DeleteUserViewState extends State<DeleteUserView> {
   @override
   Widget build(BuildContext context) {
 
-    bool loading = false;
-    bool isError = false;
-    bool isSuccess = false;
-    String error = "";
-    String success = "";
-
     return AlertDialog(
       title: Text('Delete Profile'),
       content: Container(
@@ -48,39 +42,26 @@ class _DeleteUserViewState extends State<DeleteUserView> {
                       try
                       {
                         setState(() {
-                          loading = true;
-                          isSuccess = false;
-                          isError = false;
                         });
 
                         var addRes = await user_repository().delete(widget.userId);
                         if(addRes > 0)
                         {
                           setState(() {
-                            loading = false;
-                            isSuccess = true;
-                            isError = false;
-                            error = "";
+
                           });
                           SystemNavigator.pop();
                         }
                         else
                         {
                           setState(() {
-                            loading = false;
-                            isSuccess = false;
-                            isError = true;
-                            error = "something went worng";
+                              Navigator.of(context).pop();
                           });
                         }
                       }
                       catch(e)
                       {
                         setState(() {
-                          loading = false;
-                          isSuccess = false;
-                          isError = true;
-                          error = "exp: ${e.toString()}";
                         });
                       }
                     },

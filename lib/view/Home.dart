@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:first_test/models/UserModel.dart';
 import 'package:first_test/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'ProfileInfo.dart';
 
 class ShowAll extends StatefulWidget {
@@ -56,7 +57,7 @@ class _ShowAllState extends State<ShowAll> {
                     },
                     decoration: InputDecoration(
                       hintText: 'Search by name or job',
-                      prefixIcon: Icon(Icons.search),
+                      prefixIcon: Icon(Icons.search,color: Colors.deepPurple,),
                     ),
                   ),
                 ),
@@ -133,78 +134,83 @@ class ProfileCard extends StatelessWidget {
           ),
         );
       },
-      child: Card(
-        margin: EdgeInsets.all(8.0),
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
+      child: Column(
+        children: [
+          if(profile.job != "watcher")
+          Card(
+            margin: EdgeInsets.all(8.0),
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  ClipOval(
-                    child:
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.black,
-                    child: profile?.image != null
-                        ? Image.file(
-                      File(profile!.image!),
-                      height: 80,
-                      width: 80,
-                      fit: BoxFit.cover,
-                    )
-                        : Image.asset(
-                      'assets/images/default.png',
-                      fit: BoxFit.cover,
-                    ),
+                  Row(
+                    children: <Widget>[
+                      ClipOval(
+                        child:
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundColor: Colors.black,
+                        child: profile?.image != null
+                            ? Image.file(
+                          File(profile!.image!),
+                          height: 80,
+                          width: 80,
+                          fit: BoxFit.cover,
+                        )
+                            : Image.asset(
+                          'assets/images/default.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      ),
+                      SizedBox(width: 10.0),
+                      Text(
+                        "${profile.firstName} ${profile.lastName}",
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                  ),
-                  SizedBox(width: 10.0),
+                  SizedBox(height: 10.0),
                   Text(
-                    "${profile.firstName} ${profile.lastName}",
+                    "${profile.job}",
                     style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
+                      color: Colors.grey,
                     ),
+                  ),
+                  SizedBox(height: 10.0),
+                  Text(
+                    "${profile.description}",
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                  SizedBox(height: 10.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text("${profile.liked}"),
+                      IconButton(
+                        icon: Icon(
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                        ),
+                        color: Colors.red,
+                        onPressed: onLike,
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.share),
+                        color: Colors.deepPurpleAccent,
+                        onPressed: onShare,
+                      ),
+                    ],
                   ),
                 ],
               ),
-              SizedBox(height: 10.0),
-              Text(
-                "${profile.job}",
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.grey,
-                ),
-              ),
-              SizedBox(height: 10.0),
-              Text(
-                "${profile.description}",
-                style: TextStyle(fontSize: 16.0),
-              ),
-              SizedBox(height: 10.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text("${profile.liked}"),
-                  IconButton(
-                    icon: Icon(
-                      isLiked ? Icons.favorite : Icons.favorite_border,
-                    ),
-                    color: Colors.red,
-                    onPressed: onLike,
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.share),
-                    color: Colors.deepPurpleAccent,
-                    onPressed: onShare,
-                  ),
-                ],
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

@@ -15,6 +15,12 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   var _emailController = TextEditingController();
   var _passwordController = TextEditingController();
+
+  bool isError = false;
+  String error = "";
+
+  bool _isPasswordVisible = false;
+
   List<UserModel> profileList = [];
   final VoidCallback toggleTheme;
 
@@ -96,6 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: TextFormField(
                   controller: _passwordController,
                   style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+                  obscureText: !_isPasswordVisible,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: isDarkMode ? Colors.grey.shade700 : Colors.white,
@@ -106,8 +113,19 @@ class _LoginPageState extends State<LoginPage> {
                       borderSide: BorderSide.none,
                     ),
                     prefixIcon: Icon(Icons.lock, color: isDarkMode ? Colors.white : Colors.black),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                        color: Theme.of(context).primaryColorDark,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });
+                      },
+                    ),
                   ),
-                  obscureText: true,
+
                 ),
               ),
               SizedBox(height: 32.0),
@@ -134,7 +152,10 @@ class _LoginPageState extends State<LoginPage> {
                       }),
                     );
                   } else {
-                    print("Wrong email or password");
+                    setState(() {
+                      isError = true;
+                      error = "Email or Password doesn't match";
+                    });
                   }
                 },
                 child: Text(
@@ -153,6 +174,12 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
+              SizedBox(height: 16.0),
+              isError
+                  ? Text(
+                error,
+                style: TextStyle(color: Colors.red),
+              ):
               SizedBox(height: 16.0),
               TextButton(
                 onPressed: () {

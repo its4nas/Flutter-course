@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:first_test/models/UserModel.dart';
 import 'package:first_test/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'ProfileInfo.dart';
 
 class ShowAll extends StatefulWidget {
@@ -57,7 +56,7 @@ class _ShowAllState extends State<ShowAll> {
                     },
                     decoration: InputDecoration(
                       hintText: 'Search by name or job',
-                      prefixIcon: Icon(Icons.search,color: Colors.deepPurple,),
+                      prefixIcon: Icon(Icons.search,color: Colors.deepPurpleAccent,),
                     ),
                   ),
                 ),

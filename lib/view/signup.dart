@@ -258,12 +258,20 @@ class _SignupPageState extends State<SignupPage> {
                         }
                       }
                     },
-                    child: Text('Sign Up',
-                    style: TextStyle(
-                      color: Colors.deepPurple,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                    child: Text(
+                      'ٍSign up',
+                      style: TextStyle(
+                        color: Colors.deepPurple,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
                   ),
                   SizedBox(height: 16.0),
